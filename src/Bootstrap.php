@@ -67,7 +67,6 @@ class Bootstrap {
 			return false;
 		}
 
-		$this->load_hooks();
 		new Gitea_API();
 	}
 
