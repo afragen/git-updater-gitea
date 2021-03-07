@@ -1,17 +1,11 @@
 # Git Updater - Gitea
 
-![downloads](https://img.shields.io/github/downloads/afragen/git-updater-gitea/total) ![downloads@latest](https://img.shields.io/github/downloads/afragen/git-updater-gitea/latest/total)
-
-![WordPress Tests](https://github.com/afragen/git-updater-gitea/workflows/WordPress%20Tests/badge.svg)
-
-### Gitea API for GitHub Updater plugin
-
-* Contributors: [Andy Fragen](https://github.com/afragen), [contributors](https://github.com/afragen/git-updater-gitea/graphs/contributors)
+* Contributors: afragen
 * Tags: gitea, api, git updater, github updater
 * Requires at least: 5.2
 * Requires PHP: 5.6
-* Tested up to: trunk
-* Stable tag: [main](https://github.com/afragen/git-updater-gitea/releases/latest)
+* Tested up to: 5.7
+* Stable tag: main
 * Donate link: <https://thefragens.com/github-updater-donate>
 * License: MIT
 

@@ -2,10 +2,10 @@
 /**
  * Git Updater - Gitea
  *
- * @author  Andy Fragen
- * @license MIT
- * @link    https://github.com/afragen/git-updater-gitea
- * @package git-updater-gitea
+ * @author   Andy Fragen
+ * @license  MIT
+ * @link     https://github.com/afragen/git-updater-gitea
+ * @package  git-updater-gitea
  */
 
 namespace Fragen\GitHub_Updater\API;
