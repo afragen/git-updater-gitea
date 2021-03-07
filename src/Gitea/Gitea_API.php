@@ -339,7 +339,7 @@ class Gitea_API extends API implements API_Interface {
 		if ( $auth_required['gitea'] ) {
 			add_settings_section(
 				'gitea_settings',
-				esc_html__( 'Gitea Access Token', 'github-updater' ),
+				esc_html__( 'Gitea Access Token', 'git-updater-gitea' ),
 				[ $this, 'print_section_gitea_token' ],
 				'github_updater_gitea_install_settings'
 			);
@@ -348,7 +348,7 @@ class Gitea_API extends API implements API_Interface {
 		if ( $auth_required['gitea_private'] ) {
 			add_settings_section(
 				'gitea_id',
-				esc_html__( 'Gitea Private Settings', 'github-updater' ),
+				esc_html__( 'Gitea Private Settings', 'git-updater-gitea' ),
 				[ $this, 'print_section_gitea_info' ],
 				'github_updater_gitea_install_settings'
 			);
@@ -357,7 +357,7 @@ class Gitea_API extends API implements API_Interface {
 		if ( $auth_required['gitea'] ) {
 			add_settings_field(
 				'gitea_access_token',
-				esc_html__( 'Gitea Access Token', 'github-updater' ),
+				esc_html__( 'Gitea Access Token', 'git-updater-gitea' ),
 				[ Singleton::get_instance( 'Settings', $this ), 'token_callback_text' ],
 				'github_updater_gitea_install_settings',
 				'gitea_settings',
@@ -392,7 +392,7 @@ class Gitea_API extends API implements API_Interface {
 		add_filter(
 			'github_updater_add_settings_subtabs',
 			function ( $subtabs ) {
-				return array_merge( $subtabs, [ 'gitea' => esc_html__( 'Gitea', 'github-updater' ) ] );
+				return array_merge( $subtabs, [ 'gitea' => esc_html__( 'Gitea', 'git-updater-gitea' ) ] );
 			}
 		);
 	}
@@ -401,14 +401,14 @@ class Gitea_API extends API implements API_Interface {
 	 * Print the Gitea Settings text.
 	 */
 	public function print_section_gitea_info() {
-		esc_html_e( 'Enter your repository specific Gitea Access Token.', 'github-updater' );
+		esc_html_e( 'Enter your repository specific Gitea Access Token.', 'git-updater-gitea' );
 	}
 
 	/**
 	 * Print the Gitea Access Token Settings text.
 	 */
 	public function print_section_gitea_token() {
-		esc_html_e( 'Enter your Gitea Access Token.', 'github-updater' );
+		esc_html_e( 'Enter your Gitea Access Token.', 'git-updater-gitea' );
 	}
 
 	/**
@@ -419,7 +419,7 @@ class Gitea_API extends API implements API_Interface {
 	public function add_install_settings_fields( $type ) {
 		add_settings_field(
 			'gitea_access_token',
-			esc_html__( 'Gitea Access Token', 'github-updater' ),
+			esc_html__( 'Gitea Access Token', 'git-updater-gitea' ),
 			[ $this, 'gitea_access_token' ],
 			'github_updater_install_' . $type,
 			$type
@@ -435,7 +435,7 @@ class Gitea_API extends API implements API_Interface {
 			<input class="gitea_setting" type="password" style="width:50%;" id="gitea_access_token" name="gitea_access_token" value="" autocomplete="new-password">
 			<br>
 			<span class="description">
-				<?php esc_html_e( 'Enter Gitea Access Token for private Gitea repositories.', 'github-updater' ); ?>
+				<?php esc_html_e( 'Enter Gitea Access Token for private Gitea repositories.', 'git-updater-gitea' ); ?>
 			</span>
 		</label>
 		<?php
@@ -469,7 +469,7 @@ class Gitea_API extends API implements API_Interface {
 			?>
 			<div data-dismissible="gitea-error-1" class="error notice is-dismissible">
 				<p>
-					<?php esc_html_e( 'You must set a Gitea Access Token.', 'github-updater' ); ?>
+					<?php esc_html_e( 'You must set a Gitea Access Token.', 'git-updater-gitea' ); ?>
 				</p>
 			</div>
 			<?php

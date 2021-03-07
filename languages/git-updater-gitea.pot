@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-03-07T06:14:18+00:00\n"
+"POT-Creation-Date: 2021-03-07T19:15:20+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: git-updater-gitea\n"
@@ -28,4 +28,34 @@ msgstr ""
 
 #. Author of the plugin
 msgid "Andy Fragen"
+msgstr ""
+
+#: src/Gitea/Gitea_API.php:342
+#: src/Gitea/Gitea_API.php:360
+#: src/Gitea/Gitea_API.php:422
+msgid "Gitea Access Token"
+msgstr ""
+
+#: src/Gitea/Gitea_API.php:351
+msgid "Gitea Private Settings"
+msgstr ""
+
+#: src/Gitea/Gitea_API.php:395
+msgid "Gitea"
+msgstr ""
+
+#: src/Gitea/Gitea_API.php:404
+msgid "Enter your repository specific Gitea Access Token."
+msgstr ""
+
+#: src/Gitea/Gitea_API.php:411
+msgid "Enter your Gitea Access Token."
+msgstr ""
+
+#: src/Gitea/Gitea_API.php:438
+msgid "Enter Gitea Access Token for private Gitea repositories."
+msgstr ""
+
+#: src/Gitea/Gitea_API.php:472
+msgid "You must set a Gitea Access Token."
 msgstr ""
