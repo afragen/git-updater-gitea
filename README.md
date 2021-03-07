@@ -1,2 +1,3 @@
-# git-updater-gitea
+# Git Updater - Gitea
+
 Gitea API for GitHub Updater plugin
