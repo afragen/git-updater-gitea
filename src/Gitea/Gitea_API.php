@@ -29,8 +29,6 @@ if ( ! defined( 'WPINC' ) ) {
  * @author  Marco Betschart
  */
 class Gitea_API extends API implements API_Interface {
-	use GHU_Trait;
-
 	/**
 	 * Constructor.
 	 *
