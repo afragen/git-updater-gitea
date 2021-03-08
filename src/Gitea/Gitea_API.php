@@ -11,9 +11,7 @@
 namespace Fragen\GitHub_Updater\API;
 
 use Fragen\Singleton;
-use Fragen\GitHub_Updater\API;
 use Fragen\GitHub_Updater\Branch;
-use Fragen\GitHub_Updater\Traits\GHU_Trait;
 
 /*
  * Exit if called directly.
