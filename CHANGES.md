@@ -1,5 +1,8 @@
 [unreleased]
 
+#### 0.3.1 / 2021-03-08
+* update namespace
+
 #### 0.3.0 / 2021-03-07
 * update for core plugin restructuring
 

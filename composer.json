@@ -21,7 +21,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Fragen\\GitHub_Updater\\Gitea\\": "src/",
+      "Fragen\\Git_Updater\\Gitea\\": "src/",
       "Fragen\\GitHub_Updater\\API\\": "src/Gitea/"
     }
   },
