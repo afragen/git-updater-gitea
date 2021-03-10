@@ -1,4 +1,5 @@
 [unreleased]
+* add data to `gu_api_repo_type_data`
 
 #### 0.3.1 / 2021-03-08
 * update namespace

@@ -105,12 +105,14 @@ class Bootstrap {
 
 		\add_filter(
 			'gu_api_repo_type_data',
-			function ( $false, $git ) {
-				if ( 'gitea' === $git ) {
-					return [ 'api' => '/api/v1' ];
+			function ( $arr, $repo ) {
+				if ( 'gitea' === $repo->git ) {
+					$arr['git']           = 'gitea';
+					$arr['base_uri']      = $repo->enterprise . '/api/v1';
+					$arr['base_download'] = $repo->enterprise;
 				}
 
-				return $false;
+				return $arr;
 			},
 			10,
 			2
