@@ -122,7 +122,6 @@ class Bootstrap {
 			'gu_api_url_type',
 			function ( $type, $repo, $download_link, $endpoint ) {
 				if ( 'gitea' === $type['git'] ) {
-					// $type['endpoint'] = true;
 					if ( $download_link ) {
 						$type['base_download'] = $type['base_uri'];
 					}
