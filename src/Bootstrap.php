@@ -119,6 +119,22 @@ class Bootstrap {
 		);
 
 		\add_filter(
+			'gu_api_url_type',
+			function ( $type, $repo, $download_link, $endpoint ) {
+				if ( 'gitea' === $type['git'] ) {
+					$type['endpoint'] = true;
+					if ( $download_link ) {
+						$type['base_download'] = $type['base_uri'];
+					}
+				}
+
+				return $type;
+			},
+			10,
+			4
+		);
+
+		\add_filter(
 			'gu_git_servers',
 			function ( $git_servers ) {
 				return array_merge( $git_servers, [ 'gitea' => 'Gitea' ] );
@@ -134,6 +150,19 @@ class Bootstrap {
 			},
 			10,
 			1
+		);
+
+		\add_filter(
+			'gu_install_remote_install',
+			function ( $install, $headers ) {
+				if ( 'gitea' === $install['github_updater_api'] ) {
+					$install = ( new Gitea_API() )->remote_install( $headers, $install );
+				}
+
+				return $install;
+			},
+			10,
+			2
 		);
 	}
 }
