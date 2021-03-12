@@ -83,6 +83,8 @@ class Bootstrap {
 		add_filter( 'gu_git_servers', [ $this, 'set_git_servers' ], 10, 1 );
 		add_filter( 'gu_installed_apis', [ $this, 'set_installed_apis' ], 10, 1 );
 		add_filter( 'gu_install_remote_install', [ $this, 'set_remote_install_data' ], 10, 2 );
+		add_filter( 'gu_get_language_pack_json', [ $this, 'set_language_pack_json' ], 10, 4 );
+		add_filter( 'gu_post_process_language_pack_package', [ $this, 'process_language_pack_data' ], 10, 4 );
 	}
 
 	/**
@@ -191,5 +193,47 @@ class Bootstrap {
 		}
 
 		return $install;
+	}
+
+	/**
+	 * Filter to return API specific language pack data.
+	 *
+	 * @param \stdClass $response Object of Language Pack API response.
+	 * @param string    $git      Name of git host.
+	 * @param array     $headers  Array of repo headers.
+	 * @param \stdClass $obj      Current class object.
+	 *
+	 * @return \stdClass
+	 */
+	public function set_language_pack_json( $response, $git, $headers, $obj ) {
+		if ( 'gitea' === $git ) {
+			$response = $this->api( '/repos/' . $headers['owner'] . '/' . $headers['repo'] . '/raw/master/language-pack.json' );
+			$response = isset( $response->content )
+			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
+				? json_decode( base64_decode( $response->content ) )
+				: null;
+		}
+
+		return $response;
+	}
+
+	/**
+	 * Filter to post process API specific language pack data.
+	 *
+	 * @param null|string $package URL to language pack.
+	 * @param string      $git     Name of git host.
+	 * @param \stdClass   $locale  Object of language pack data.
+	 * @param array       $headers Array of repository headers.
+	 *
+	 * @return string
+	 */
+	public function process_language_pack_data( $package, $git, $locale, $headers ) {
+		if ( 'gitea' === $git ) {
+			// TODO: make sure this works as expected.
+			$package = [ $headers['uri'], 'raw/master' ];
+			$package = implode( '/', $package ) . $locale->package;
+		}
+
+		return $package;
 	}
 }
