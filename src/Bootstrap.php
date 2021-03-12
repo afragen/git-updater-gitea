@@ -76,13 +76,13 @@ class Bootstrap {
 	 * @return void
 	 */
 	public function load_hooks() {
-		\add_filter( 'gu_get_repo_parts', [ $this, 'add_repo_parts' ], 10, 2 );
-		\add_filter( 'gu_settings_auth_required', [ $this, 'set_auth_required' ], 10, 1 );
-		\add_filter( 'gu_api_repo_type_data', [ $this, 'set_repo_type_data' ], 10, 2 );
-		\add_filter( 'gu_api_url_type', [ $this, 'set_api_url_data' ], 10, 4 );
-		\add_filter( 'gu_git_servers', [ $this, 'set_git_servers' ], 10, 1 );
-		\add_filter( 'gu_installed_apis', [ $this, 'set_installed_apis' ], 10, 1 );
-		\add_filter( 'gu_install_remote_install', [ $this, 'set_remote_install_data' ], 10, 2 );
+		add_filter( 'gu_get_repo_parts', [ $this, 'add_repo_parts' ], 10, 2 );
+		add_filter( 'gu_settings_auth_required', [ $this, 'set_auth_required' ], 10, 1 );
+		add_filter( 'gu_api_repo_type_data', [ $this, 'set_repo_type_data' ], 10, 2 );
+		add_filter( 'gu_api_url_type', [ $this, 'set_api_url_data' ], 10, 4 );
+		add_filter( 'gu_git_servers', [ $this, 'set_git_servers' ], 10, 1 );
+		add_filter( 'gu_installed_apis', [ $this, 'set_installed_apis' ], 10, 1 );
+		add_filter( 'gu_install_remote_install', [ $this, 'set_remote_install_data' ], 10, 2 );
 	}
 
 	/**
@@ -91,7 +91,7 @@ class Bootstrap {
 	 * @param array  $repos Array of repo data.
 	 * @param string $type  plugin|theme.
 	 *
-	 * @return array $repos
+	 * @return array
 	 */
 	public function add_repo_parts( $repos, $type ) {
 		$repos['types'] = array_merge( $repos['types'], [ 'Gitea' => 'gitea_' . $type ] );
@@ -105,10 +105,10 @@ class Bootstrap {
 	 *
 	 * @param array $auth_required Array of authentication required data.
 	 *
-	 * @return array $auth_required
+	 * @return array
 	 */
 	public function set_auth_required( $auth_required ) {
-		return \array_merge(
+		return array_merge(
 			$auth_required,
 			[
 				'gitea'         => true,
@@ -123,7 +123,7 @@ class Bootstrap {
 	 * @param array     $arr  Array of repo API data.
 	 * @param \stdClass $repo Repository object.
 	 *
-	 * @return void
+	 * @return array
 	 */
 	public function set_repo_type_data( $arr, $repo ) {
 		if ( 'gitea' === $repo->git ) {
@@ -140,10 +140,10 @@ class Bootstrap {
 	 *
 	 * @param array     $type          Array of API type data.
 	 * @param \stdClass $repo          Repository object.
-	 * @param bool      $download_link Is this a download link?
+	 * @param bool      $download_link Boolean indicating a download link.
 	 * @param string    $endpoint      API URL endpoint.
 	 *
-	 * @return array $type
+	 * @return array
 	 */
 	public function set_api_url_data( $type, $repo, $download_link, $endpoint ) {
 		if ( 'gitea' === $type['git'] ) {
@@ -160,7 +160,7 @@ class Bootstrap {
 	 *
 	 * @param array $git_servers Array of git servers.
 	 *
-	 * @return array $git_servers
+	 * @return array
 	 */
 	public function set_git_servers( $git_servers ) {
 		return array_merge( $git_servers, [ 'gitea' => 'Gitea' ] );
@@ -183,7 +183,7 @@ class Bootstrap {
 	 * @param array $install Array of remote installation data.
 	 * @param array $headers Array of repository header data.
 	 *
-	 * @return void
+	 * @return array
 	 */
 	public function set_remote_install_data( $install, $headers ) {
 		if ( 'gitea' === $install['github_updater_api'] ) {
