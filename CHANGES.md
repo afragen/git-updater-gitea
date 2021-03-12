@@ -1,5 +1,9 @@
 [unreleased]
 
+#### 0.5.0 / 2021-03-12
+* de-anonymize hooks
+* add filters for language pack processing
+
 #### 0.4.0 / 2021-03-10
 * add data to `gu_api_repo_type_data`
 * add filter `gu_install_remote_install` for remote install
