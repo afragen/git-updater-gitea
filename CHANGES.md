@@ -1,4 +1,6 @@
 [unreleased]
+
+#### 0.5.0 / 2021-03-12
 * de-anonymize hooks
 * add filters for language pack processing
 
