@@ -162,19 +162,20 @@ class Bootstrap {
 	 * @return array
 	 */
 	public function set_credentials( $credentials, $args ) {
-		if ( isset( $args['type'], $args['headers'], $args['hosts'], $args['options'], $args['slug'] ) ) {
+		if ( isset( $args['type'], $args['headers'], $args['options'], $args['slug'], $args['object'] ) ) {
 			$type    = $args['type'];
 			$headers = $args['headers'];
-			$hosts   = $args['hosts'];
 			$options = $args['options'];
 			$slug    = $args['slug'];
+			$object  = $args['object'];
 		}
-		if ( 'gitea' === $type || $type instanceof Gitea_API ) {
+		if ( 'gitea' === $type || $object instanceof Gitea_API ) {
 			$token = ! empty( $options['gitea_access_token'] ) ? $options['gitea_access_token'] : null;
 			$token = ! empty( $options[ $slug ] ) ? $options[ $slug ] : $token;
 
-			$credentials['token'] = $token;
 			$credentials['type']  = 'gitea';
+			$credentials['isset'] = true;
+			$credentials['token'] = isset( $token ) ? $token : null;
 		}
 
 		return $credentials;
