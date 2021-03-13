@@ -5,6 +5,7 @@
 * add filter `gu_get_repo_api`
 * add filter `gu_get_auth_header`
 * add filter `gu_post_get_credentials`
+* add filter `gu_parse_release_asset`
 
 #### 0.5.0 / 2021-03-12
 * de-anonymize hooks

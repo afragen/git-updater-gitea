@@ -60,6 +60,7 @@ class Bootstrap {
 		add_filter( 'gu_get_auth_header', [ $this, 'set_auth_header' ], 10, 2 );
 		add_filter( 'gu_git_servers', [ $this, 'set_git_servers' ], 10, 1 );
 		add_filter( 'gu_installed_apis', [ $this, 'set_installed_apis' ], 10, 1 );
+		add_filter( 'gu_parse_release_asset', [ $this, 'parse_release_asset' ], 10, 4 );
 		add_filter( 'gu_install_remote_install', [ $this, 'set_remote_install_data' ], 10, 2 );
 		add_filter( 'gu_get_language_pack_json', [ $this, 'set_language_pack_json' ], 10, 4 );
 		add_filter( 'gu_post_process_language_pack_package', [ $this, 'process_language_pack_data' ], 10, 4 );
@@ -215,6 +216,24 @@ class Bootstrap {
 	 */
 	public function set_installed_apis( $installed_apis ) {
 		return array_merge( $installed_apis, [ 'gitea_api' => true ] );
+	}
+
+	/**
+	 * Parse API release asset.
+	 *
+	 * @param \stdClass $response API response object.
+	 * @param string    $git      Name of git host.
+	 * @param string    $request  Schema of API request.
+	 * @param \stdClass $obj      Current class object.
+	 *
+	 * @return \stdClass|string
+	 */
+	public function parse_release_asset( $response, $git, $request, $obj ) {
+		if ( 'gitea' === $git ) {
+			// TODO: make work.
+		}
+
+		return $response;
 	}
 
 	/**
