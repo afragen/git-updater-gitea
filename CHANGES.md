@@ -1,4 +1,6 @@
 [unreleased]
+
+#### 0.6.0 / 2021-03-13
 * remove constructor
 * update `$auth_required`
 * add some tests
