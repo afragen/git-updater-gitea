@@ -45,8 +45,8 @@ class BootstrapTest extends WP_UnitTestCase {
 		$enterprise->enterprise = 'https://mygitea.example.com';
 		$expected_enterprise    = [
 			'git'           => 'gitea',
-			'base_uri'      => 'https://api.mybitbucket.example.com/api/v1',
-			'base_download' => 'https://mybitbucket.example.com',
+			'base_uri'      => 'https://mygitea.example.com/api/v1',
+			'base_download' => 'https://mygitea.example.com',
 		];
 
 		$actual_enterprise   = (new Bootstrap())->set_repo_type_data([], $enterprise);
