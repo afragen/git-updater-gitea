@@ -13,7 +13,7 @@
  * Plugin Name:       GitHub Updater - Gitea
  * Plugin URI:        https://github.com/afragen/git-updater-gitea
  * Description:       Add Gitea hosted repositories to the GitHub Updater plugin.
- * Version:           0.5.0.1
+ * Version:           0.5.0.2
  * Author:            Andy Fragen
  * License:           MIT
  * Network:           true

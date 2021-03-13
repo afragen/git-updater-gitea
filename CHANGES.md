@@ -2,6 +2,9 @@
 * remove constructor
 * update `$auth_required`
 * add some tests
+* add filter `gu_get_repo_api`
+* add filter `gu_get_auth_header`
+* add filter `gu_post_get_credentials`
 
 #### 0.5.0 / 2021-03-12
 * de-anonymize hooks

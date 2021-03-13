@@ -79,7 +79,7 @@ class Gitea_API extends API implements API_Interface {
 	 * @return bool
 	 */
 	public function get_remote_info( $file ) {
-		return $this->get_remote_api_info( 'gitea', $file, "/repos/:owner/:repo/raw/:branch/{$file}" );
+		return $this->get_remote_api_info( 'gitea', "/repos/:owner/:repo/raw/:branch/{$file}" );
 	}
 
 	/**
@@ -88,7 +88,7 @@ class Gitea_API extends API implements API_Interface {
 	 * @return bool
 	 */
 	public function get_remote_tag() {
-		return $this->get_remote_api_tag( 'gitea', '/repos/:owner/:repo/releases' );
+		return $this->get_remote_api_tag( '/repos/:owner/:repo/releases' );
 	}
 
 	/**
@@ -117,7 +117,7 @@ class Gitea_API extends API implements API_Interface {
 	 * @return mixed
 	 */
 	public function get_repo_meta() {
-		return $this->get_remote_api_repo_meta( 'gitea', '/repos/:owner/:repo' );
+		return $this->get_remote_api_repo_meta( '/repos/:owner/:repo' );
 	}
 
 	/**
