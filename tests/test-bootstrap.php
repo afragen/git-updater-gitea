@@ -33,7 +33,7 @@ class BootstrapTest extends WP_UnitTestCase {
 	public function test_set_auth_required() {
 		$expected = [
 			'gitea'         => true,
-			'gitea_private' => false,
+			'gitea_private' => true,
 		];
 		$acutal = (new Bootstrap())->set_auth_required([]);
 		$this->assertEqualSetsWithIndex($expected, $acutal);

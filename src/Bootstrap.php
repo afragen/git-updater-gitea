@@ -89,7 +89,7 @@ class Bootstrap {
 			$auth_required,
 			[
 				'gitea'         => true,
-				'gitea_private' => false,
+				'gitea_private' => true,
 			]
 		);
 	}

@@ -1,4 +1,7 @@
 [unreleased]
+* remove constructor
+* update `$auth_required`
+* add some tests
 
 #### 0.5.0 / 2021-03-12
 * de-anonymize hooks
