@@ -32,31 +32,6 @@ if ( ! defined( 'WPINC' ) ) {
  */
 class Bootstrap {
 	/**
-	 * Holds main plugin file.
-	 *
-	 * @var $file
-	 */
-	protected $file;
-
-	/**
-	 * Holds main plugin directory.
-	 *
-	 * @var $dir
-	 */
-	protected $dir;
-
-	/**
-	 * Constructor.
-	 *
-	 * @param  string $file Main plugin file.
-	 * @return void
-	 */
-	public function __construct( $file ) {
-		$this->file = $file;
-		$this->dir  = dirname( $file );
-	}
-
-	/**
 	 * Run the bootstrap.
 	 *
 	 * @return bool|void
@@ -78,10 +53,14 @@ class Bootstrap {
 	public function load_hooks() {
 		add_filter( 'gu_get_repo_parts', [ $this, 'add_repo_parts' ], 10, 2 );
 		add_filter( 'gu_settings_auth_required', [ $this, 'set_auth_required' ], 10, 1 );
+		add_filter( 'gu_get_repo_api', [ $this, 'set_repo_api' ], 10, 3 );
 		add_filter( 'gu_api_repo_type_data', [ $this, 'set_repo_type_data' ], 10, 2 );
 		add_filter( 'gu_api_url_type', [ $this, 'set_api_url_data' ], 10, 4 );
+		add_filter( 'gu_post_get_credentials', [ $this, 'set_credentials' ], 10, 2 );
+		add_filter( 'gu_get_auth_header', [ $this, 'set_auth_header' ], 10, 2 );
 		add_filter( 'gu_git_servers', [ $this, 'set_git_servers' ], 10, 1 );
 		add_filter( 'gu_installed_apis', [ $this, 'set_installed_apis' ], 10, 1 );
+		add_filter( 'gu_parse_release_asset', [ $this, 'parse_release_asset' ], 10, 4 );
 		add_filter( 'gu_install_remote_install', [ $this, 'set_remote_install_data' ], 10, 2 );
 		add_filter( 'gu_get_language_pack_json', [ $this, 'set_language_pack_json' ], 10, 4 );
 		add_filter( 'gu_post_process_language_pack_package', [ $this, 'process_language_pack_data' ], 10, 4 );
@@ -114,9 +93,26 @@ class Bootstrap {
 			$auth_required,
 			[
 				'gitea'         => true,
-				'gitea_private' => false,
+				'gitea_private' => true,
 			]
 		);
+	}
+
+	/**
+	 * Return git host API object.
+	 *
+	 * @param \stdClass $repo_api Git API object.
+	 * @param string    $git      Name of git host.
+	 * @param \stdClass $repo     Repository object.
+	 *
+	 * @return \stdClass
+	 */
+	public function set_repo_api( $repo_api, $git, $repo ) {
+		if ( 'gitea' === $git ) {
+			$repo_api = new Gitea_API( $repo );
+		}
+
+		return $repo_api;
 	}
 
 	/**
@@ -158,6 +154,50 @@ class Bootstrap {
 	}
 
 	/**
+	 * Add credentials data for API.
+	 *
+	 * @param array $credentials Array of repository credentials data.
+	 * @param array $args        Hook args.
+	 *
+	 * @return array
+	 */
+	public function set_credentials( $credentials, $args ) {
+		if ( isset( $args['type'], $args['headers'], $args['options'], $args['slug'], $args['object'] ) ) {
+			$type    = $args['type'];
+			$headers = $args['headers'];
+			$options = $args['options'];
+			$slug    = $args['slug'];
+			$object  = $args['object'];
+		}
+		if ( 'gitea' === $type || $object instanceof Gitea_API ) {
+			$token = ! empty( $options['gitea_access_token'] ) ? $options['gitea_access_token'] : null;
+			$token = ! empty( $options[ $slug ] ) ? $options[ $slug ] : $token;
+
+			$credentials['type']  = 'gitea';
+			$credentials['isset'] = true;
+			$credentials['token'] = isset( $token ) ? $token : null;
+		}
+
+		return $credentials;
+	}
+
+	/**
+	 * Add Basic Authentication header.
+	 *
+	 * @param array $headers     HTTP GET headers.
+	 * @param array $credentials Repository credentials.
+	 *
+	 * @return array
+	 */
+	public function set_auth_header( $headers, $credentials ) {
+		if ( 'gitea' === $credentials['type'] ) {
+			$headers['headers']['Authorization'] = 'token ' . $credentials['token'];
+		}
+
+		return $headers;
+	}
+
+	/**
 	 * Add API as git server.
 	 *
 	 * @param array $git_servers Array of git servers.
@@ -177,6 +217,24 @@ class Bootstrap {
 	 */
 	public function set_installed_apis( $installed_apis ) {
 		return array_merge( $installed_apis, [ 'gitea_api' => true ] );
+	}
+
+	/**
+	 * Parse API release asset.
+	 *
+	 * @param \stdClass $response API response object.
+	 * @param string    $git      Name of git host.
+	 * @param string    $request  Schema of API request.
+	 * @param \stdClass $obj      Current class object.
+	 *
+	 * @return \stdClass|string
+	 */
+	public function parse_release_asset( $response, $git, $request, $obj ) {
+		if ( 'gitea' === $git ) {
+			// TODO: make work.
+		}
+
+		return $response;
 	}
 
 	/**
