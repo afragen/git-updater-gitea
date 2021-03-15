@@ -22,7 +22,7 @@
  * GitHub Plugin URI: https://github.com/afragen/git-updater-gitea
  * Primary Branch:    main
  * Requires at least: 5.2
- * Requires PHP:      5.6
+ * Requires PHP:      7.0
  */
 
 namespace Fragen\Git_Updater\Gitea;
