@@ -1,7 +1,10 @@
 [unreleased]
+
+#### 0.7.0 / 2021-03-15 🎂
 * add filter `gu_post_api_response_body`
 * add filter `gu_get_git_icon_data`
 * add filter `gu_parse_enterprise_headers`
+* more tests added
 
 #### 0.6.0 / 2021-03-13
 * remove constructor
