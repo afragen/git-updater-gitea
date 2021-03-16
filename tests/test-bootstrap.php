@@ -64,4 +64,33 @@ class BootstrapTest extends WP_UnitTestCase {
 
 		$this->assertSame($expected_rest_api, $actual['enterprise_api']);
 	}
+
+	public function test_set_credentials() {
+		$credentials = [
+			'api.wordpress' => false,
+			'isset'         => false,
+			'token'         => null,
+			'type'          => null,
+			'enterprise'    => null,
+		];
+		$args = [
+			'type'          => 'gitea',
+			'headers'       => ['host' => 'mygitea.org'],
+			'options'       => ['gitea_access_token' => 'xxxx'],
+			'slug'          => '',
+			'object'        => new \stdClass,
+		];
+
+		$credentials_expected =[
+			'api.wordpress' => false,
+			'type'          => 'gitea',
+			'isset'         => true,
+			'token'         => 'xxxx',
+			'enterprise'    => false,
+		];
+
+		$actual = (new Bootstrap())->set_credentials($credentials, $args);
+
+		$this->assertEqualSetsWithIndex($credentials_expected, $actual);
+	}
 }
