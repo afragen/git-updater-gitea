@@ -93,4 +93,15 @@ class BootstrapTest extends WP_UnitTestCase {
 
 		$this->assertEqualSetsWithIndex($credentials_expected, $actual);
 	}
+
+	public function test_get_icon_data() {
+		$icon_data           = ['headers' => [], 'icons'=>[]];
+		$expected['headers'] = ['GiteaPluginURI' => 'Gitea Plugin URI'];
+		$expected['icons']   = ['gitea' => 'git-updater-gitea/assets/gitea-logo.svg' ];
+
+		$actual = (new Bootstrap())->set_git_icon_data($icon_data, 'Plugin');
+
+		$this->assertEqualSetsWithIndex($expected, $actual);
+	}
+
 }
