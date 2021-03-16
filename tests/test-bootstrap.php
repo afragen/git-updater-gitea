@@ -49,7 +49,59 @@ class BootstrapTest extends WP_UnitTestCase {
 			'base_download' => 'https://mygitea.example.com',
 		];
 
-		$actual_enterprise   = (new Bootstrap())->set_repo_type_data([], $enterprise);
+		$actual_enterprise = (new Bootstrap())->set_repo_type_data([], $enterprise);
 		$this->assertEqualSetsWithIndex($expected_enterprise, $actual_enterprise);
 	}
+
+	public function test_parse_headers() {
+		$test = [
+			'host'     => null,
+			'base_uri' => 'https://api.example.com',
+		];
+
+		$expected_rest_api = 'https://api.example.com/api/v3';
+		$actual            = (new Bootstrap())->parse_headers($test, 'Gitea');
+
+		$this->assertSame($expected_rest_api, $actual['enterprise_api']);
+	}
+
+	public function test_set_credentials() {
+		$credentials = [
+			'api.wordpress' => false,
+			'isset'         => false,
+			'token'         => null,
+			'type'          => null,
+			'enterprise'    => null,
+		];
+		$args = [
+			'type'          => 'gitea',
+			'headers'       => ['host' => 'mygitea.org'],
+			'options'       => ['gitea_access_token' => 'xxxx'],
+			'slug'          => '',
+			'object'        => new \stdClass,
+		];
+
+		$credentials_expected =[
+			'api.wordpress' => false,
+			'type'          => 'gitea',
+			'isset'         => true,
+			'token'         => 'xxxx',
+			'enterprise'    => false,
+		];
+
+		$actual = (new Bootstrap())->set_credentials($credentials, $args);
+
+		$this->assertEqualSetsWithIndex($credentials_expected, $actual);
+	}
+
+	public function test_get_icon_data() {
+		$icon_data           = ['headers' => [], 'icons'=>[]];
+		$expected['headers'] = ['GiteaPluginURI' => 'Gitea Plugin URI'];
+		$expected['icons']   = ['gitea' => 'git-updater-gitea/assets/gitea-logo.svg' ];
+
+		$actual = (new Bootstrap())->set_git_icon_data($icon_data, 'Plugin');
+
+		$this->assertEqualSetsWithIndex($expected, $actual);
+	}
+
 }

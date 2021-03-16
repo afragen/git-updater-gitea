@@ -9,7 +9,7 @@
 * Contributors: [Andy Fragen](https://github.com/afragen), [contributors](https://github.com/afragen/git-updater-gitea/graphs/contributors)
 * Tags: gitea, api, git updater, github updater
 * Requires at least: 5.2
-* Requires PHP: 5.6
+* Requires PHP: 7.0
 * Tested up to: trunk
 * Stable tag: [main](https://github.com/afragen/git-updater-gitea/releases/latest)
 * Donate link: <https://thefragens.com/github-updater-donate>

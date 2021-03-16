@@ -52,6 +52,7 @@ class Bootstrap {
 	 */
 	public function load_hooks() {
 		add_filter( 'gu_get_repo_parts', [ $this, 'add_repo_parts' ], 10, 2 );
+		add_filter( 'gu_parse_enterprise_headers', [ $this, 'parse_headers' ], 10, 2 );
 		add_filter( 'gu_settings_auth_required', [ $this, 'set_auth_required' ], 10, 1 );
 		add_filter( 'gu_get_repo_api', [ $this, 'set_repo_api' ], 10, 3 );
 		add_filter( 'gu_api_repo_type_data', [ $this, 'set_repo_type_data' ], 10, 2 );
@@ -60,10 +61,12 @@ class Bootstrap {
 		add_filter( 'gu_get_auth_header', [ $this, 'set_auth_header' ], 10, 2 );
 		add_filter( 'gu_git_servers', [ $this, 'set_git_servers' ], 10, 1 );
 		add_filter( 'gu_installed_apis', [ $this, 'set_installed_apis' ], 10, 1 );
+		add_filter( 'gu_post_api_response_body', [ $this, 'convert_remote_body_response' ], 10, 2 );
 		add_filter( 'gu_parse_release_asset', [ $this, 'parse_release_asset' ], 10, 4 );
 		add_filter( 'gu_install_remote_install', [ $this, 'set_remote_install_data' ], 10, 2 );
 		add_filter( 'gu_get_language_pack_json', [ $this, 'set_language_pack_json' ], 10, 4 );
 		add_filter( 'gu_post_process_language_pack_package', [ $this, 'process_language_pack_data' ], 10, 4 );
+		add_filter( 'gu_get_git_icon_data', [ $this, 'set_git_icon_data' ], 10, 2 );
 	}
 
 	/**
@@ -79,6 +82,24 @@ class Bootstrap {
 		$repos['uris']  = array_merge( $repos['uris'], [ 'Gitea' => '' ] );
 
 		return $repos;
+	}
+
+	/**
+	 * Modify enterprise API header data.
+	 *
+	 * @param array  $header Array of repo data.
+	 * @param string $git    Name of git host.
+	 *
+	 * @return string
+	 */
+	public function parse_headers( $header, $git ) {
+		if ( 'Gitea' === $git ) {
+			$header['enterprise_uri']  = $header['base_uri'];
+			$header['enterprise_api']  = trim( $header['enterprise_uri'], '/' );
+			$header['enterprise_api'] .= '/api/v3';
+		}
+
+		return $header;
 	}
 
 	/**
@@ -220,6 +241,25 @@ class Bootstrap {
 	}
 
 	/**
+	 * Convert HHTP remote body response to JSON.
+	 *
+	 * @param array     $response HTTP GET response.
+	 * @param \stdClass $obj API object.
+	 *
+	 * @return array
+	 */
+	public function convert_remote_body_response( $response, $obj ) {
+		if ( $obj instanceof Gitea_API ) {
+			$body = wp_remote_retrieve_body( $response );
+			if ( null === json_decode( $body ) ) {
+				$response['body'] = json_encode( $body );
+			}
+		}
+
+		return $response;
+	}
+
+	/**
 	 * Parse API release asset.
 	 *
 	 * @param \stdClass $response API response object.
@@ -293,5 +333,25 @@ class Bootstrap {
 		}
 
 		return $package;
+	}
+
+	/**
+	 * Set API icon data for display.
+	 *
+	 * @param array  $icon_data Header data for API.
+	 * @param string $type_cap Plugin|Theme.
+	 *
+	 * @return array
+	 */
+	public function set_git_icon_data( $icon_data, $type_cap ) {
+		$icon_data['headers'] = array_merge(
+			$icon_data['headers'],
+			[ "Gitea{$type_cap}URI" => "Gitea {$type_cap} URI" ]
+		);
+		$icon_data['icons']   = array_merge(
+			$icon_data['icons'],
+			[ 'gitea' => basename( dirname( __DIR__ ) ) . '/assets/gitea-logo.svg' ]
+		);
+		return $icon_data;
 	}
 }
