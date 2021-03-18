@@ -485,7 +485,7 @@ class Gitea_API extends API implements API_Interface {
 
 		$base = $headers['base_uri'] . '/api/v1';
 
-		$install['download_link'] = "{$base}/repos/{$install['github_updater_repo']}/archive/{$install['github_updater_branch']}.zip";
+		$install['download_link'] = "{$base}/repos/{$install['git_updater_repo']}/archive/{$install['git_updater_branch']}.zip";
 
 		/*
 		 * Add/Save access token if present.
