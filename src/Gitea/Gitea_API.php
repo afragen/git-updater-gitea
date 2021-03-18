@@ -337,7 +337,7 @@ class Gitea_API extends API implements API_Interface {
 				'gitea_settings',
 				esc_html__( 'Gitea Access Token', 'git-updater-gitea' ),
 				[ $this, 'print_section_gitea_token' ],
-				'github_updater_gitea_install_settings'
+				'git_updater_gitea_install_settings'
 			);
 		}
 
@@ -346,7 +346,7 @@ class Gitea_API extends API implements API_Interface {
 				'gitea_id',
 				esc_html__( 'Gitea Private Settings', 'git-updater-gitea' ),
 				[ $this, 'print_section_gitea_info' ],
-				'github_updater_gitea_install_settings'
+				'git_updater_gitea_install_settings'
 			);
 		}
 
@@ -355,7 +355,7 @@ class Gitea_API extends API implements API_Interface {
 				'gitea_access_token',
 				esc_html__( 'Gitea Access Token', 'git-updater-gitea' ),
 				[ Singleton::get_instance( 'Settings', $this ), 'token_callback_text' ],
-				'github_updater_gitea_install_settings',
+				'git_updater_gitea_install_settings',
 				'gitea_settings',
 				[
 					'id'    => 'gitea_access_token',
@@ -371,7 +371,7 @@ class Gitea_API extends API implements API_Interface {
 	 * @return mixed
 	 */
 	public function add_repo_setting_field() {
-		$setting_field['page']            = 'github_updater_gitea_install_settings';
+		$setting_field['page']            = 'git_updater_gitea_install_settings';
 		$setting_field['section']         = 'gitea_id';
 		$setting_field['callback_method'] = [
 			Singleton::get_instance( 'Settings', $this ),
@@ -417,7 +417,7 @@ class Gitea_API extends API implements API_Interface {
 			'gitea_access_token',
 			esc_html__( 'Gitea Access Token', 'git-updater-gitea' ),
 			[ $this, 'gitea_access_token' ],
-			'github_updater_install_' . $type,
+			'git_updater_install_' . $type,
 			$type
 		);
 	}
