@@ -1,7 +1,7 @@
 <?php
 /**
  * Git Updater - Gitea.
- * Requires GitHub Updater plugin.
+ * Requires Git Updater plugin.
  *
  * @package git-updater-gitea
  * @author  Andy Fragen
@@ -10,10 +10,10 @@
  */
 
 /**
- * Plugin Name:       GitHub Updater - Gitea
+ * Plugin Name:       Git Updater - Gitea
  * Plugin URI:        https://github.com/afragen/git-updater-gitea
- * Description:       Add Gitea hosted repositories to the GitHub Updater plugin.
- * Version:           0.7.0
+ * Description:       Add Gitea hosted repositories to the Git Updater plugin.
+ * Version:           0.8.0
  * Author:            Andy Fragen
  * License:           MIT
  * Network:           true

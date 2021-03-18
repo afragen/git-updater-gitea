@@ -1,5 +1,9 @@
 [unreleased]
 
+#### 0.8.0 / 2021-03-18
+* update namespacing
+* requires Git Updater
+
 #### 0.7.0 / 2021-03-15 🎂
 * add filter `gu_post_api_response_body`
 * add filter `gu_get_git_icon_data`
