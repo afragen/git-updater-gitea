@@ -10,7 +10,7 @@
 
 namespace Fragen\Git_Updater\Gitea;
 
-use Fragen\GitHub_Updater\API\Gitea_API;
+use Fragen\Git_Updater\API\Gitea_API;
 
 /*
  * Exit if called directly.
@@ -38,7 +38,7 @@ class Bootstrap {
 	 */
 	public function run() {
 		// Exit if GitHub Updater not running.
-		if ( ! class_exists( '\\Fragen\\GitHub_Updater\\Bootstrap' ) ) {
+		if ( ! class_exists( '\\Fragen\\Git_Updater\\Bootstrap' ) ) {
 			return false;
 		}
 

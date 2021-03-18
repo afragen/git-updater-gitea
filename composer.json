@@ -22,7 +22,7 @@
   "autoload": {
     "psr-4": {
       "Fragen\\Git_Updater\\Gitea\\": "src/",
-      "Fragen\\GitHub_Updater\\API\\": "src/Gitea/"
+      "Fragen\\Git_Updater\\API\\": "src/Gitea/"
     }
   },
   "scripts": {
