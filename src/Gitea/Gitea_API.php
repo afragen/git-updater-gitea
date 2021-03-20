@@ -173,12 +173,13 @@ class Gitea_API extends API implements API_Interface {
 		 * to use as a download link during a branch switch.
 		 *
 		 * @since 8.8.0
+		 * @since 10.0.0
 		 *
 		 * @param string    $download_link Download URL.
 		 * @param /stdClass $this->type    Repository object.
 		 * @param string    $branch_switch Branch or tag for rollback or branch switching.
 		 */
-		return apply_filters( 'github_updater_post_construct_download_link', $download_link, $this->type, $branch_switch );
+		return apply_filters( 'gu_post_construct_download_link', $download_link, $this->type, $branch_switch );
 	}
 
 	/**
@@ -386,7 +387,7 @@ class Gitea_API extends API implements API_Interface {
 	 */
 	private function add_settings_subtab() {
 		add_filter(
-			'github_updater_add_settings_subtabs',
+			'gu_add_settings_subtabs',
 			function ( $subtabs ) {
 				return array_merge( $subtabs, [ 'gitea' => esc_html__( 'Gitea', 'git-updater-gitea' ) ] );
 			}
