@@ -351,19 +351,18 @@ class Gitea_API extends API implements API_Interface {
 			);
 		}
 
-		if ( $auth_required['gitea'] ) {
-			add_settings_field(
-				'gitea_access_token',
-				esc_html__( 'Gitea Access Token', 'git-updater-gitea' ),
-				[ Singleton::get_instance( 'Settings', $this ), 'token_callback_text' ],
-				'git_updater_gitea_install_settings',
-				'gitea_settings',
-				[
-					'id'    => 'gitea_access_token',
-					'token' => true,
-				]
-			);
-		}
+		add_settings_field(
+			'gitea_access_token',
+			esc_html__( 'Gitea Access Token', 'git-updater-gitea' ),
+			[ Singleton::get_instance( 'Settings', $this ), 'token_callback_text' ],
+			'git_updater_gitea_install_settings',
+			'gitea_settings',
+			[
+				'id'    => 'gitea_access_token',
+				'token' => true,
+				'class' => $auth_required['gitea'] ? '' : 'hidden',
+			]
+		);
 	}
 
 	/**
