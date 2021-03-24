@@ -189,6 +189,8 @@ class Bootstrap {
 			$options = $args['options'];
 			$slug    = $args['slug'];
 			$object  = $args['object'];
+		} else {
+			return;
 		}
 		if ( 'gitea' === $type || $object instanceof Gitea_API ) {
 			$token = ! empty( $options['gitea_access_token'] ) ? $options['gitea_access_token'] : null;
