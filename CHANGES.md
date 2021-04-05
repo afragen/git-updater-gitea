@@ -1,5 +1,9 @@
 [unreleased]
 
+#### 0.8.1 / 2021-04-05
+* update assets
+* update hooks
+
 #### 0.8.0 / 2021-03-18
 * update namespacing
 * requires Git Updater
