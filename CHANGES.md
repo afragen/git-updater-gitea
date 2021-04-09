@@ -1,4 +1,5 @@
 [unreleased]
+* remove branch set from constructor
 
 #### 0.8.1 / 2021-04-05
 * update assets
