@@ -1,21 +1,21 @@
 # Copyright (C) 2021 Andy Fragen
-# This file is distributed under the same license as the GitHub Updater - Gitea plugin.
+# This file is distributed under the same license as the Git Updater - Gitea plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: GitHub Updater - Gitea 0.5.0\n"
+"Project-Id-Version: Git Updater - Gitea 0.9.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/git-updater-gitea\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-03-12T22:25:35+00:00\n"
+"POT-Creation-Date: 2021-04-12T00:50:24+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: git-updater-gitea\n"
 
 #. Plugin Name of the plugin
-msgid "GitHub Updater - Gitea"
+msgid "Git Updater - Gitea"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -23,39 +23,39 @@ msgid "https://github.com/afragen/git-updater-gitea"
 msgstr ""
 
 #. Description of the plugin
-msgid "Add Gitea hosted repositories to the GitHub Updater plugin."
+msgid "Add Gitea hosted repositories to the Git Updater plugin."
 msgstr ""
 
 #. Author of the plugin
 msgid "Andy Fragen"
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:338
-#: src/Gitea/Gitea_API.php:356
-#: src/Gitea/Gitea_API.php:418
+#: src/Gitea/Gitea_API.php:332
+#: src/Gitea/Gitea_API.php:349
+#: src/Gitea/Gitea_API.php:411
 msgid "Gitea Access Token"
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:347
+#: src/Gitea/Gitea_API.php:341
 msgid "Gitea Private Settings"
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:391
+#: src/Gitea/Gitea_API.php:384
 msgid "Gitea"
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:400
+#: src/Gitea/Gitea_API.php:393
 msgid "Enter your repository specific Gitea Access Token."
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:407
+#: src/Gitea/Gitea_API.php:400
 msgid "Enter your Gitea Access Token."
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:434
+#: src/Gitea/Gitea_API.php:427
 msgid "Enter Gitea Access Token for private Gitea repositories."
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:468
+#: src/Gitea/Gitea_API.php:461
 msgid "You must set a Gitea Access Token."
 msgstr ""

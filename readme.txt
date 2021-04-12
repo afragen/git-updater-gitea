@@ -6,16 +6,16 @@
 * Requires PHP: 7.0
 * Tested up to: 5.7
 * Stable tag: main
-* Donate link: <https://thefragens.com/github-updater-donate>
+* Donate link: <https://thefragens.com/git-updater-donate>
 * License: MIT
 
-This plugin allows GitLab functionality for the [GitHub Updater/Git Updater](https://github.com/afragen/github-updater) plugin.
+This plugin allows GitLab functionality for the [GitHub Updater/Git Updater](https://github.com/afragen/git-updater) plugin.
 
 ## Description
 
-As of GitHub Updater v10 or greater most of the git host API classes have been extracted to their own individual plugins. This is one such plugin. The goal was to streamline the base GitHub Updater plugin and only add git hosts as needed.
+As of Git Updater v10 or greater most of the git host API classes have been extracted to their own individual plugins. This is one such plugin. The goal was to streamline the base Git Updater plugin and only add git hosts as needed.
 
-[Comprehensive information regarding GitHub Updater is available on the wiki.](https://github.com/afragen/github-updater/wiki)
+[Comprehensive information regarding Git Updater is available on the wiki.](https://github.com/afragen/git-updater/wiki)
 
 ### Headers
 
