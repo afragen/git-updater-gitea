@@ -1,4 +1,6 @@
 [unreleased]
+
+#### 0.9.0 / 2021-04-11
 * remove branch set from constructor
 
 #### 0.8.1 / 2021-04-05

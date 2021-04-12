@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'ee623206da684f5d6d83677ff1727dae6843ad6e',
+    'reference' => 'd12b49c1b6bf1fb0aee4959a8545da114d280cc0',
     'name' => 'afragen/git-updater-gitea',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'ee623206da684f5d6d83677ff1727dae6843ad6e',
+      'reference' => 'd12b49c1b6bf1fb0aee4959a8545da114d280cc0',
     ),
   ),
 );
