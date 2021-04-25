@@ -60,7 +60,7 @@ class Gitea_API extends API implements API_Interface {
 		}
 
 		if ( $set_credentials ) {
-			add_site_option( 'github_updater', static::$options );
+			add_site_option( 'git_updater', static::$options );
 		}
 	}
 

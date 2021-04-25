@@ -1,5 +1,8 @@
 [unreleased]
 
+#### 0.9.2 / 2021-04-25
+* fix option name
+
 #### 0.9.1 / 2021-04-12
 * fix PHP error, filter must return value
 
