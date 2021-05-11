@@ -20,6 +20,8 @@ use Composer\Semver\VersionParser;
 
 
 
+
+
 class InstalledVersions
 {
 private static $installed = array (
@@ -30,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '9c294e921925e8bd8d6b7e2f33be9b11f791bdce',
+    'reference' => '927dea407752619697d97e3ddc19be1d51b2a5d0',
     'name' => 'afragen/git-updater-gitea',
   ),
   'versions' => 
@@ -42,7 +44,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '9c294e921925e8bd8d6b7e2f33be9b11f791bdce',
+      'reference' => '927dea407752619697d97e3ddc19be1d51b2a5d0',
     ),
   ),
 );
@@ -61,7 +63,6 @@ $packages = array();
 foreach (self::getInstalled() as $installed) {
 $packages[] = array_keys($installed['versions']);
 }
-
 
 if (1 === \count($packages)) {
 return $packages[0];
@@ -254,6 +255,7 @@ public static function reload($data)
 self::$installed = $data;
 self::$installedByVendor = array();
 }
+
 
 
 
