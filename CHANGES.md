@@ -1,5 +1,6 @@
 [unreleased]
 * removed old query arg authentication
+* update readme
 
 #### 1.0.0 / 2021-05-11
 * update logo branding
