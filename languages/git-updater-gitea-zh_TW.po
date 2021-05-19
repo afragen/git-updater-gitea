@@ -1,0 +1,66 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Project-Id-Version: Git Updater - Gitea\n"
+"POT-Creation-Date: 2021-05-18 22:39-0700\n"
+"PO-Revision-Date: 2021-05-18 22:45-0700\n"
+"Language-Team: Alex Lion <learnwithalex@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: git-updater-gitea.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Last-Translator: Alex Lion <learnwithalex@gmail.com>\n"
+"Language: zh_TW\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+"X-Poedit-SearchPathExcluded-1: vendor\n"
+
+#: src/Gitea/Gitea_API.php:332 src/Gitea/Gitea_API.php:349
+#: src/Gitea/Gitea_API.php:411
+msgid "Gitea Access Token"
+msgstr "Gitea 存取權杖"
+
+#: src/Gitea/Gitea_API.php:341
+msgid "Gitea Private Settings"
+msgstr "Gitea 私有設定"
+
+#: src/Gitea/Gitea_API.php:384
+msgid "Gitea"
+msgstr "Gitea"
+
+#: src/Gitea/Gitea_API.php:393
+msgid "Enter your repository specific Gitea Access Token."
+msgstr "輸入存放庫指定的 Gitea 存取權杖。"
+
+#: src/Gitea/Gitea_API.php:400
+msgid "Enter your Gitea Access Token."
+msgstr "輸入 Gitea 存取權杖。"
+
+#: src/Gitea/Gitea_API.php:427
+msgid "Enter Gitea Access Token for private Gitea repositories."
+msgstr "為 Gitea 私有存放庫輸入 Gitea 存取權杖。"
+
+#: src/Gitea/Gitea_API.php:461
+msgid "You must set a Gitea Access Token."
+msgstr "網站管理員必須設定 Gitea 存取權杖。"
+
+#. Plugin Name of the plugin/theme
+msgid "Git Updater - Gitea"
+msgstr "Git Updater - Gitea"
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/afragen/git-updater-gitea"
+msgstr "https://github.com/afragen/git-updater-gitea"
+
+#. Description of the plugin/theme
+msgid "Add Gitea hosted repositories to the Git Updater plugin."
+msgstr "將託管於 Gitea 的存放庫加入至 Git Updater 中。"
+
+#. Author of the plugin/theme
+msgid "Andy Fragen"
+msgstr "Andy Fragen"
