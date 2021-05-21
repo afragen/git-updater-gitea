@@ -1,6 +1,9 @@
 [unreleased]
+
+#### 1.0.1 / 2021-05-21
 * removed old query arg authentication
 * update readme
+* add language pack updating
 
 #### 1.0.0 / 2021-05-11
 * update logo branding
