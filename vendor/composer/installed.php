@@ -1,24 +1,24 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => 'dev-main',
-    'version' => 'dev-main',
+    'pretty_version' => 'dev-develop',
+    'version' => 'dev-develop',
     'aliases' => 
     array (
     ),
-    'reference' => 'cc783851c034b7fd0213d3627815df7ceae79dc8',
+    'reference' => '5e2ed96f32cb0f6328065490d0ac3ba02a82bb82',
     'name' => 'afragen/git-updater-gitea',
   ),
   'versions' => 
   array (
     'afragen/git-updater-gitea' => 
     array (
-      'pretty_version' => 'dev-main',
-      'version' => 'dev-main',
+      'pretty_version' => 'dev-develop',
+      'version' => 'dev-develop',
       'aliases' => 
       array (
       ),
-      'reference' => 'cc783851c034b7fd0213d3627815df7ceae79dc8',
+      'reference' => '5e2ed96f32cb0f6328065490d0ac3ba02a82bb82',
     ),
   ),
 );
