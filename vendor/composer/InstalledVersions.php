@@ -27,24 +27,24 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => 'dev-develop',
-    'version' => 'dev-develop',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => '5e2ed96f32cb0f6328065490d0ac3ba02a82bb82',
+    'reference' => '0f7713d2bac8e46c0e143cd8f87f079dd4af4f08',
     'name' => 'afragen/git-updater-gitea',
   ),
   'versions' => 
   array (
     'afragen/git-updater-gitea' => 
     array (
-      'pretty_version' => 'dev-develop',
-      'version' => 'dev-develop',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => '5e2ed96f32cb0f6328065490d0ac3ba02a82bb82',
+      'reference' => '0f7713d2bac8e46c0e143cd8f87f079dd4af4f08',
     ),
   ),
 );
