@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '927dea407752619697d97e3ddc19be1d51b2a5d0',
+    'reference' => 'cc783851c034b7fd0213d3627815df7ceae79dc8',
     'name' => 'afragen/git-updater-gitea',
   ),
   'versions' => 
@@ -44,7 +44,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '927dea407752619697d97e3ddc19be1d51b2a5d0',
+      'reference' => 'cc783851c034b7fd0213d3627815df7ceae79dc8',
     ),
   ),
 );
