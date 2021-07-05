@@ -1,5 +1,8 @@
 [unreleased]
 
+#### 1.1.0 / 2021-07-05
+* updated for PHP 5.6 compatibility, will remove when WP core changes minimum requirement
+
 #### 1.0.1 / 2021-05-21
 * removed old query arg authentication
 * update readme
