@@ -27,9 +27,6 @@ jobs:
             phpunit-versions: '5.7.27'
             operating-system: ubuntu-18.04
     name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
-    env:
-      PHPUNIT_VERS: ${{ matrix.phpunit-versions }}
-      WP_RUN_CORE_TESTS: false
     steps:
     - name: Checkout
       uses: actions/checkout@v2
