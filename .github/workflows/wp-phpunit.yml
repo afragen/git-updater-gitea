@@ -29,7 +29,7 @@ jobs:
     name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
     env:
       PHPUNIT_VERS: ${{ matrix.phpunit-versions }}
-      WP_RUN_CORE_TESTS: 0
+      WP_RUN_CORE_TESTS: false
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -46,7 +46,7 @@ jobs:
       run: php -v
 
     - name: Composer install
-      run: composer require phpunit/phpunit:"${{ matrix.phpunit-versions }}" --with-all-dependencies; composer install --optimize-autoloader --prefer-dist; phpunit --version; ./vendor/phpunit/phpunit/phpunit --version
+      run: composer require phpunit/phpunit:"${{ PHPUNIT_VERS }}" --with-all-dependencies; composer install --optimize-autoloader --prefer-dist; phpunit --version; ./vendor/phpunit/phpunit/phpunit --version
 
     - name: Start Mysql
       run: sudo service mysql start
