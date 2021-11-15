@@ -21,7 +21,7 @@ jobs:
       matrix:
         operating-system: [ubuntu-18.04]
         php-versions: ['7.2', '7.3', '7.4']
-        # phpunit-versions: ['7.5.20']
+        phpunit-versions: ['7.5.20']
         include:
           - php-versions: '7.0'
             # phpunit-versions: '5.7.27'
@@ -37,7 +37,7 @@ jobs:
         php-version: ${{ matrix.php-versions }}
         coverage: none
         extensions: mysql
-        tools: wp-cli, phpunit-polyfills #, phpunit:${{ matrix.phpunit-versions }}
+        tools: wp-cli, phpunit-polyfills, phpunit:${{ matrix.phpunit-versions }}
 
     - name: Check PHP Version
       run: php -v
