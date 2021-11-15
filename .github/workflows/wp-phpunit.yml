@@ -37,7 +37,7 @@ jobs:
         php-version: ${{ matrix.php-versions }}
         coverage: none
         extensions: mysql
-        tools: wp-cli, phpunit:${{ matrix.phpunit-versions }}
+        tools: wp-cli, phpunit-polyfills, phpunit:${{ matrix.phpunit-versions }}
 
     - name: Check PHP Version
       run: php -v
