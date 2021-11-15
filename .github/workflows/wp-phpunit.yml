@@ -27,6 +27,8 @@ jobs:
             phpunit-versions: '5.7.27'
             operating-system: ubuntu-18.04
     name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
+    env:
+      PHPUNIT_VERS: ${{ phpunit-versions }}
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -38,6 +40,9 @@ jobs:
         coverage: none
         extensions: mysql
         tools: wp-cli, phpunit-polyfills, phpunit:${{ matrix.phpunit-versions }}
+
+    - name: Check PHPUnit Version
+      run: phpunit -v; echo {$PHPUNIT_VERS}
 
     - name: Check PHP Version
       run: php -v
