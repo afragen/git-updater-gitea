@@ -42,13 +42,13 @@ jobs:
         tools: wp-cli, phpunit-polyfills, phpunit:${{ matrix.phpunit-versions }}
 
     - name: Check PHPUnit Version
-      run: phpunit -v; echo {$PHPUNIT_VERS}
+      run: echo {$PHPUNIT_VERS}
 
     - name: Check PHP Version
       run: php -v
 
     - name: Composer install
-      run: composer install --optimize-autoloader --prefer-dist
+      run: composer install phpunit/phpunit:"${{ matrix.phpunit-versions }}"; composer install --optimize-autoloader --prefer-dist
 
     - name: Start Mysql
       run: sudo service mysql start
