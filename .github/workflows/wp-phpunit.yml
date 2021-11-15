@@ -48,7 +48,7 @@ jobs:
       run: php -v
 
     - name: Composer install
-      run: composer install phpunit/phpunit:"${{ matrix.phpunit-versions }}"; composer install --optimize-autoloader --prefer-dist
+      run: composer require phpunit/phpunit:"${{ matrix.phpunit-versions }}"; composer install --optimize-autoloader --prefer-dist
 
     - name: Start Mysql
       run: sudo service mysql start
