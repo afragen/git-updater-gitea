@@ -21,7 +21,7 @@ jobs:
       matrix:
         operating-system: [ubuntu-18.04]
         php-versions: ['7.2', '7.3', '7.4']
-        phpunit-versions: ['7.5.20']
+        phpunit-versions: ['5.7.27']
         include:
           - php-versions: '7.0'
             phpunit-versions: '5.7.27'
