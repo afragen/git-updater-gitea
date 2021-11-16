@@ -1,5 +1,8 @@
 [unreleased]
 
+#### 1.2.0 / 2021-11-15
+* use new filter to add repository types to Git Updater Additions
+
 #### 1.1.1 / 2021-09-23
 * switch from `PaND` to `WP_Dismiss_Notice`
 

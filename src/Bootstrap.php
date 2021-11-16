@@ -67,6 +67,7 @@ class Bootstrap {
 		add_filter( 'gu_get_language_pack_json', [ $this, 'set_language_pack_json' ], 10, 4 );
 		add_filter( 'gu_post_process_language_pack_package', [ $this, 'process_language_pack_data' ], 10, 4 );
 		add_filter( 'gu_get_git_icon_data', [ $this, 'set_git_icon_data' ], 10, 2 );
+		add_filter( 'gua_addition_types', [ $this, 'add_addition_types' ], 10, 1 );
 	}
 
 	/**
@@ -355,5 +356,16 @@ class Bootstrap {
 			[ 'gitea' => basename( dirname( __DIR__ ) ) . '/assets/gitea-logo.svg' ]
 		);
 		return $icon_data;
+	}
+
+	/**
+	 * Add repository types to Git Updater Additions.
+	 *
+	 * @param array $addition_types Array of Git Updater Additions repository types.
+	 *
+	 * @return array
+	 */
+	public function add_addition_types( $addition_types ) {
+		return array_merge( $addition_types, [ 'gitea_plugin', 'gitea_theme' ] );
 	}
 }
