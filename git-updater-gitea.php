@@ -23,7 +23,7 @@
  * GitHub Languages:  https://github.com/afragen/git-updater-gitea-translations
  * Primary Branch:    main
  * Requires at least: 5.2
- * Requires PHP:      5.6
+ * Requires PHP:      7.2
  */
 
 namespace Fragen\Git_Updater\Gitea;

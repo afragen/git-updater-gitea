@@ -1,4 +1,5 @@
 [unreleased]
+* require PHP 7.2+
 
 #### 1.2.0 / 2021-11-15
 * use new filter to add repository types to Git Updater Additions
