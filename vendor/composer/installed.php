@@ -1,22 +1,22 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => 'dev-develop',
-        'version' => 'dev-develop',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '89608ac007a4847d08c945e72ff2f04fa52f7fd2',
+        'reference' => 'd29fda0d8c6e206097c24a19258eeb5cc0a6ea24',
         'name' => 'afragen/git-updater-gitea',
         'dev' => false,
     ),
     'versions' => array(
         'afragen/git-updater-gitea' => array(
-            'pretty_version' => 'dev-develop',
-            'version' => 'dev-develop',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '89608ac007a4847d08c945e72ff2f04fa52f7fd2',
+            'reference' => 'd29fda0d8c6e206097c24a19258eeb5cc0a6ea24',
             'dev_requirement' => false,
         ),
     ),
