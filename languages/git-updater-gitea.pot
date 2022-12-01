@@ -2,16 +2,16 @@
 # This file is distributed under the MIT.
 msgid ""
 msgstr ""
-"Project-Id-Version: Git Updater - Gitea 2.0.0\n"
+"Project-Id-Version: Git Updater - Gitea 2.0.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/git-updater-gitea\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-04-25T06:11:14+00:00\n"
+"POT-Creation-Date: 2022-12-01T00:07:38+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.6.0\n"
+"X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: git-updater-gitea\n"
 
 #. Plugin Name of the plugin
@@ -32,7 +32,7 @@ msgstr ""
 
 #: src/Gitea/Gitea_API.php:332
 #: src/Gitea/Gitea_API.php:349
-#: src/Gitea/Gitea_API.php:411
+#: src/Gitea/Gitea_API.php:413
 msgid "Gitea Access Token"
 msgstr ""
 
@@ -52,10 +52,10 @@ msgstr ""
 msgid "Enter your Gitea Access Token."
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:427
+#: src/Gitea/Gitea_API.php:429
 msgid "Enter Gitea Access Token for private Gitea repositories."
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:461
+#: src/Gitea/Gitea_API.php:463
 msgid "You must set a Gitea Access Token."
 msgstr ""

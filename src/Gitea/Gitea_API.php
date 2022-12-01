@@ -398,6 +398,8 @@ class Gitea_API extends API implements API_Interface {
 	 */
 	public function print_section_gitea_token() {
 		esc_html_e( 'Enter your Gitea Access Token.', 'git-updater-gitea' );
+		$icon = plugin_dir_url( dirname( __DIR__ ) ) . 'assets/gitea-logo.svg';
+		printf( '<img class="git-oauth-icon" src="%s" alt="Gitea logo" />', esc_attr( $icon ) );
 	}
 
 	/**

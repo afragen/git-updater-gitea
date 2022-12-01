@@ -1,4 +1,7 @@
 [unreleased]
+#### 2.0.1 / 2022-11-30
+* add git icon to subtab
+* update GA
 
 #### 2.0.0 / 2022-04-24
 * require PHP 7.2+
