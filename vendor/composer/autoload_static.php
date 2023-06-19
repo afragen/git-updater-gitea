@@ -12,6 +12,10 @@ class ComposerStaticInitf46cccc817a237b054437bfb7901d7b2
             'Fragen\\Git_Updater\\Gitea\\' => 25,
             'Fragen\\Git_Updater\\API\\' => 23,
         ),
+        'D' => 
+        array (
+            'Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 55,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -22,6 +26,10 @@ class ComposerStaticInitf46cccc817a237b054437bfb7901d7b2
         'Fragen\\Git_Updater\\API\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/Gitea',
+        ),
+        'Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dealerdirect/phpcodesniffer-composer-installer/src',
         ),
     );
 

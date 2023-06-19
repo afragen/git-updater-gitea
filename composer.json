@@ -19,6 +19,16 @@
   "require": {
     "php": ">=7.2"
   },
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+    "squizlabs/php_codesniffer": "3.6.0",
+    "wp-coding-standards/wpcs": "~2.3.0"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
   "autoload": {
     "psr-4": {
       "Fragen\\Git_Updater\\Gitea\\": "src/",
@@ -26,8 +36,11 @@
     }
   },
   "scripts": {
-    "post-update-cmd": [
-      "wp i18n make-pot . languages/git-updater-gitea.pot"
+    "make-pot": [
+      "wp i18n make-pot . languages/git-updater.pot"
+    ],
+    "wpcs": [
+      "vendor/bin/phpcbf .; vendor/bin/phpcs ."
     ]
   }
 }

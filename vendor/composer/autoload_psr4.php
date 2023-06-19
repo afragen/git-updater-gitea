@@ -8,4 +8,5 @@ $baseDir = dirname($vendorDir);
 return array(
     'Fragen\\Git_Updater\\Gitea\\' => array($baseDir . '/src'),
     'Fragen\\Git_Updater\\API\\' => array($baseDir . '/src/Gitea'),
+    'Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => array($vendorDir . '/dealerdirect/phpcodesniffer-composer-installer/src'),
 );
