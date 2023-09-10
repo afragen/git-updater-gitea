@@ -37,7 +37,7 @@ class Bootstrap {
 	 * @return bool|void
 	 */
 	public function run() {
-		// Exit if GitHub Updater not running.
+		// Exit if Git Updater not running.
 		if ( ! class_exists( '\\Fragen\\Git_Updater\\Bootstrap' ) ) {
 			return false;
 		}

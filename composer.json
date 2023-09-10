@@ -19,6 +19,14 @@
   "require": {
     "php": ">=7.2"
   },
+  "require-dev": {
+    "wp-coding-standards/wpcs": "^3.0.0"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
   "autoload": {
     "psr-4": {
       "Fragen\\Git_Updater\\Gitea\\": "src/",
@@ -26,8 +34,11 @@
     }
   },
   "scripts": {
-    "post-update-cmd": [
-      "wp i18n make-pot . languages/git-updater-gitea.pot"
+    "make-pot": [
+      "wp i18n make-pot . languages/git-updater.pot"
+    ],
+    "wpcs": [
+      "vendor/bin/phpcbf .; vendor/bin/phpcs ."
     ]
   }
 }
