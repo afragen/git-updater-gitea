@@ -1,4 +1,5 @@
 [unreleased]
+* don't save primary Gitea token during remote install
 
 #### 2.0.2 / 2023-09-10
 * WPCS 3.0.0
