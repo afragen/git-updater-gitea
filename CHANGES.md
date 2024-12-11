@@ -1,5 +1,9 @@
 [unreleased]
 
+#### 2.2.0 / 2024-12-11
+* add/update GAs
+* load in `init` for `_load_textdomain_just_in_time`
+
 #### 2.1.0 / 2024-10-31 🎃
 * update GitHub Actions
 * don't save primary Gitea token during remote install
