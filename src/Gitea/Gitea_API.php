@@ -87,12 +87,12 @@ class Gitea_API extends API implements API_Interface {
 	/**
 	 * Read the remote CHANGES.md file.
 	 *
-	 * @param string $changes Changelog filename.
+	 * @param null $changes Changelog filename - (deprecated).
 	 *
 	 * @return mixed
 	 */
 	public function get_remote_changes( $changes ) {
-		return $this->get_remote_api_changes( 'gitea', $changes, "/repos/:owner/:repo/raw/:branch/{$changes}" );
+		return $this->get_remote_api_changes( 'gitea', $changes, '/repos/:owner/:repo/raw/:branch/:changelog' );
 	}
 
 	/**
@@ -130,6 +130,15 @@ class Gitea_API extends API implements API_Interface {
 	public function get_release_asset() {
 		// TODO: eventually figure this out.
 		return false;
+	}
+
+	/**
+	 * Return list of repository assets.
+	 *
+	 * @return array
+	 */
+	public function get_repo_assets() {
+		return $this->get_remote_api_assets( 'gitea', '/repos/:owner/:repo/contents/:path' );
 	}
 
 	/**
@@ -316,6 +325,27 @@ class Gitea_API extends API implements API_Interface {
 		}
 
 		return [ $tags, $rollback ];
+	}
+
+	/**
+	 * Parse remote assets directory.
+	 *
+	 * @param \stdClass|array $response Response from API call.
+	 *
+	 * @return \stdClass|array
+	 */
+	protected function parse_asset_dir_response( $response ) {
+		$assets = [];
+
+		if ( isset( $response->message ) || isset( $response->error ) || is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		foreach ( $response as $asset ) {
+			$assets[ $asset->name ] = $asset->download_url;
+		}
+
+		return $assets;
 	}
 
 	/**
