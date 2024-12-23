@@ -1,5 +1,6 @@
 [unreleased]
 
+#### 2.3.0 / 2024-12-23
 * updates for new Git Updater features
 
 #### 2.2.0 / 2024-12-11
