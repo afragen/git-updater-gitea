@@ -142,6 +142,15 @@ class Gitea_API extends API implements API_Interface {
 	}
 
 	/**
+	 * Return list of files at GitHub repo root.
+	 *
+	 * @return array
+	 */
+	public function get_repo_contents() {
+		return $this->get_remote_api_contents( 'gitea', '/repos/:owner/:repo/contents/' );
+	}
+
+	/**
 	 * Construct $this->type->download_link using Gitea API.
 	 *
 	 * @param boolean $branch_switch For direct branch changing.
@@ -328,6 +337,31 @@ class Gitea_API extends API implements API_Interface {
 	}
 
 	/**
+	 * Parse remote root files/dirs.
+	 *
+	 * @param \stdClass|array $response  Response from API call.
+	 *
+	 * @return array
+	 */
+	protected function parse_contents_response( $response ) {
+		$files = [];
+		$dirs  = [];
+		foreach ( $response as $content ) {
+			if ( 'file' === $content->type ) {
+				$files[] = $content->name;
+			}
+			if ( 'dir' === $content->type ) {
+				$dirs[] = $content->name;
+			}
+		}
+
+		return [
+			'files' => $files,
+			'dirs'  => $dirs,
+		];
+	}
+
+	/**
 	 * Parse remote assets directory.
 	 *
 	 * @param \stdClass|array $response Response from API call.
@@ -337,7 +371,7 @@ class Gitea_API extends API implements API_Interface {
 	protected function parse_asset_dir_response( $response ) {
 		$assets = [];
 
-		if ( isset( $response->message ) || isset( $response->error ) || is_wp_error( $response ) ) {
+		if ( isset( $response->message ) || is_wp_error( $response ) ) {
 			return $response;
 		}
 
