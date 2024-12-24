@@ -1,5 +1,8 @@
 [unreleased]
 
+#### 2.3.1 / 2024-12-23
+* added code as Gitea API can get repo file/folder for more efficiency
+
 #### 2.3.0 / 2024-12-23
 * updates for new Git Updater features
 
