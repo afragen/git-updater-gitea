@@ -1,5 +1,8 @@
 [unreleased]
 
+#### 2.3.2 / 2024-12-25
+* update for no parameter in `get_remote_changes()`
+
 #### 2.3.1 / 2024-12-23
 * added code as Gitea API can get repo file/folder for more efficiency
 
