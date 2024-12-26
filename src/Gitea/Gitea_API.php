@@ -92,7 +92,7 @@ class Gitea_API extends API implements API_Interface {
 	 * @return mixed
 	 */
 	public function get_remote_changes( $changes ) {
-		return $this->get_remote_api_changes( 'gitea', '/repos/:owner/:repo/raw/:branch/:changelog' );
+		return $this->get_remote_api_changes( 'gitea', $changes, '/repos/:owner/:repo/raw/:branch/:changelog' );
 	}
 
 	/**

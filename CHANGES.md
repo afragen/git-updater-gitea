@@ -1,5 +1,8 @@
 [unreleased]
 
+#### 2.3.3 / 2024-12-26
+* revert fix for deprecated parameter
+
 #### 2.3.2 / 2024-12-25
 * update for no parameter in `get_remote_changes()`
 
