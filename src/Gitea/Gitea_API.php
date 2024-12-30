@@ -81,7 +81,7 @@ class Gitea_API extends API implements API_Interface {
 	 * @return bool
 	 */
 	public function get_remote_tag() {
-		return $this->get_remote_api_tag( '/repos/:owner/:repo/releases' );
+		return $this->get_remote_api_tag( 'gitea', '/repos/:owner/:repo/releases' );
 	}
 
 	/**
@@ -101,7 +101,7 @@ class Gitea_API extends API implements API_Interface {
 	 * @return mixed
 	 */
 	public function get_remote_readme() {
-		return $this->get_remote_api_readme( 'gitea', '/repos/:owner/:repo/raw/:branch/readme.txt' );
+		return $this->get_remote_api_readme( 'gitea', '/repos/:owner/:repo/raw/:branch/:readme' );
 	}
 
 	/**
@@ -110,7 +110,7 @@ class Gitea_API extends API implements API_Interface {
 	 * @return mixed
 	 */
 	public function get_repo_meta() {
-		return $this->get_remote_api_repo_meta( '/repos/:owner/:repo' );
+		return $this->get_remote_api_repo_meta( 'gitea', '/repos/:owner/:repo' );
 	}
 
 	/**
@@ -227,11 +227,14 @@ class Gitea_API extends API implements API_Interface {
 	 *
 	 * @param \stdClass|array $response Response from API call for tags.
 	 *
-	 * @return \stdClass|array Array of tag numbers, object is error.
+	 * @return \stdClass|array|bool Array of tag numbers, object is error.
 	 */
 	public function parse_tag_response( $response ) {
 		if ( $this->validate_response( $response ) ) {
 			return $response;
+		}
+		if ( is_string( $response ) ) {
+			return false;
 		}
 
 		$arr = [];
@@ -252,12 +255,16 @@ class Gitea_API extends API implements API_Interface {
 	 *
 	 * @param \stdClass|array $response Response from API call.
 	 *
-	 * @return array $arr Array of meta variables.
+	 * @return array|\stdClass|bool $arr Array of meta variables.
 	 */
 	public function parse_meta_response( $response ) {
 		if ( $this->validate_response( $response ) ) {
 			return $response;
 		}
+		if ( is_string( $response ) ) {
+			return false;
+		}
+
 		$arr      = [];
 		$response = [ $response ];
 
@@ -377,7 +384,9 @@ class Gitea_API extends API implements API_Interface {
 		}
 
 		foreach ( $response as $asset ) {
-			$assets[ $asset->name ] = $asset->download_url;
+			if ( 'file' === $asset->type ) {
+				$assets[ $asset->name ] = $asset->download_url;
+			}
 		}
 
 		return $assets;

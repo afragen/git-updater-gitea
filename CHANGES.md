@@ -1,5 +1,8 @@
 [unreleased]
 
+#### 2.4.0 / 2024-12-30
+* update for checking contents, assets, changes, and readmes
+
 #### 2.3.3 / 2024-12-26
 * revert fix for deprecated parameter
 
