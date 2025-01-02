@@ -1,5 +1,8 @@
 [unreleased]
 
+#### 2.4.1 / 2025-01-02
+* update `Gitea_API::parse_asset_dir_response`
+
 #### 2.4.0 / 2024-12-30
 * update for checking contents, assets, changes, and readmes
 
