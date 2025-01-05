@@ -200,6 +200,7 @@ class Bootstrap {
 			$credentials['type']  = 'gitea';
 			$credentials['isset'] = true;
 			$credentials['token'] = isset( $token ) ? $token : null;
+			$credentials['slug']  = $slug;
 		}
 
 		return $credentials;
@@ -216,6 +217,7 @@ class Bootstrap {
 	public function set_auth_header( $headers, $credentials ) {
 		if ( 'gitea' === $credentials['type'] ) {
 			$headers['headers']['Authorization'] = 'token ' . $credentials['token'];
+			$headers['headers']['gitea']         = $credentials['slug'];
 		}
 
 		return $headers;
