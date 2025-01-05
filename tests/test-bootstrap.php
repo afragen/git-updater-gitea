@@ -72,12 +72,13 @@ class BootstrapTest extends WP_UnitTestCase {
 			'token'         => null,
 			'type'          => null,
 			'enterprise'    => null,
+			'slug'          => null,
 		];
 		$args = [
 			'type'          => 'gitea',
 			'headers'       => ['host' => 'mygitea.org'],
 			'options'       => ['gitea_access_token' => 'xxxx'],
-			'slug'          => '',
+			'slug'          => 'my-slug',
 			'object'        => new \stdClass,
 		];
 
@@ -87,6 +88,7 @@ class BootstrapTest extends WP_UnitTestCase {
 			'isset'         => true,
 			'token'         => 'xxxx',
 			'enterprise'    => false,
+			'slug'          => 'my-slug',
 		];
 
 		$actual = (new Bootstrap())->set_credentials($credentials, $args);
