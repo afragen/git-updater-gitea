@@ -1,5 +1,8 @@
 [unreleased]
 
+#### 2.4.2 / 2025-01-05
+* pass slug in credentials for authentication headers
+
 #### 2.4.1 / 2025-01-02
 * update `Gitea_API::parse_asset_dir_response`
 
