@@ -9,10 +9,12 @@ on:
   push:
     branches:
       - develop
+      - master
       - main
   pull_request:
     branches:
       - develop
+      - master
       - main
 
 jobs:
@@ -21,12 +23,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-versions: ["7.4", "8.0", "8.1", "8.2", "8.3"]
+        php-versions: ["7.4", "8.0", "8.1", "8.2", "8.3", "8.4"]
 
     name: PHP ${{ matrix.php-versions }} Test on ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@master
 
       - name: Setup MySQL 8.0 with mysql_native_password
         uses: shogo82148/actions-setup-mysql@v1
@@ -49,6 +51,9 @@ jobs:
 
       - name: Composer install
         run: composer install --optimize-autoloader --prefer-dist
+
+      - name: Install SVN
+        run: sudo apt install -y subversion
 
       - name: Install WP Tests
         run: bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1 latest

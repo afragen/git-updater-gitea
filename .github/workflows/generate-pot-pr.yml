@@ -29,8 +29,8 @@ jobs:
 
       - name: Configure git user
         run: |
-          git config --global user.email "andy@thefragens.com"
-          git config --global user.name "Andy Fragen"
+          git config user.name ${{ github.actor }}
+          git config user.email ${{ github.actor }}@users.noreply.github.com
 
       - name: Check if remote branch exists
         run: echo "REMOTE_BRANCH_EXISTS=$([[ -z $(git ls-remote --heads origin generate-pot) ]] && echo "0" || echo "1")" >> $GITHUB_ENV
@@ -63,6 +63,7 @@ jobs:
 
       - name: Create pull request
         if: env.CHANGES_DETECTED == 1
-        run: gh pr create --base main --head generate-pot --title "Generate POT - $(date +'%Y-%m-%d')" --body "Automated PR"
+        run: gh pr create --base ${BRANCH_NAME} --head generate-pot --title "Generate POT - $(date +'%Y-%m-%d')" --body "Automated PR"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
