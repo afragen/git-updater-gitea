@@ -1,5 +1,8 @@
 [unreleased]
 
+#### 2.4.3 / 2025-02-21
+* update workflow
+
 #### 2.4.2 / 2025-01-05
 * pass slug in credentials for authentication headers
 
