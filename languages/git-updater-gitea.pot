@@ -1,15 +1,15 @@
-# Copyright (C) 2024 Andy Fragen
+# Copyright (C) 2025 Andy Fragen
 # This file is distributed under the MIT.
 msgid ""
 msgstr ""
-"Project-Id-Version: git-updater-gitea 2.4.0\n"
-"Report-Msgid-Bugs-To: https://github.com/afragen/git-updater-gitea/git-updater-gitea/issues\n"
+"Project-Id-Version: Git Updater - Gitea 2.4.3\n"
+"Report-Msgid-Bugs-To: https://github.com/afragen/git-updater-gitea/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-12-30T22:16:34+00:00\n"
+"POT-Creation-Date: 2025-02-21T21:26:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: git-updater-gitea\n"
@@ -34,32 +34,32 @@ msgstr ""
 msgid "Andy Fragen"
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:406
-#: src/Gitea/Gitea_API.php:423
-#: src/Gitea/Gitea_API.php:487
+#: src/Gitea/Gitea_API.php:411
+#: src/Gitea/Gitea_API.php:428
+#: src/Gitea/Gitea_API.php:492
 msgid "Gitea Access Token"
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:415
+#: src/Gitea/Gitea_API.php:420
 msgid "Gitea Private Settings"
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:458
+#: src/Gitea/Gitea_API.php:463
 msgid "Gitea"
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:467
+#: src/Gitea/Gitea_API.php:472
 msgid "Enter your repository specific Gitea Access Token."
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:474
+#: src/Gitea/Gitea_API.php:479
 msgid "Enter your Gitea Access Token."
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:503
+#: src/Gitea/Gitea_API.php:508
 msgid "Enter Gitea Access Token for private Gitea repositories."
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:537
+#: src/Gitea/Gitea_API.php:542
 msgid "You must set a Gitea Access Token."
 msgstr ""
