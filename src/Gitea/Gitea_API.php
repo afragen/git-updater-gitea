@@ -273,6 +273,7 @@ class Gitea_API extends API implements API_Interface {
 			function ( $e ) use ( &$arr ) {
 				$arr['private']      = $e->private;
 				$arr['last_updated'] = $e->updated_at;
+				$arr['added']        = $e->created_at;
 				$arr['watchers']     = $e->watchers_count;
 				$arr['forks']        = $e->forks_count;
 				$arr['open_issues']  = isset( $e->open_issues_count ) ? $e->open_issues_count : 0;
