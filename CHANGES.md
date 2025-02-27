@@ -1,4 +1,6 @@
 [unreleased]
+
+#### 2.4.4 / 2025-02-27
 * add `added` meta data
 
 #### 2.4.3 / 2025-02-21
