@@ -1,5 +1,6 @@
 [unreleased]
 * add error checking to `parse_contents_response()`
+* un-escape using `use`
 
 #### 2.4.4 / 2025-02-27
 * add `added` meta data

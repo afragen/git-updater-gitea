@@ -11,6 +11,7 @@
 namespace Fragen\Git_Updater\Gitea;
 
 use Fragen\Git_Updater\API\Gitea_API;
+use stdClass;
 
 /*
  * Exit if called directly.
@@ -20,7 +21,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // Load textdomain.
-\add_action(
+add_action(
 	'init',
 	function () {
 		load_plugin_textdomain( 'git-updater-gitlab' );
@@ -123,11 +124,11 @@ class Bootstrap {
 	/**
 	 * Return git host API object.
 	 *
-	 * @param \stdClass $repo_api Git API object.
-	 * @param string    $git      Name of git host.
-	 * @param \stdClass $repo     Repository object.
+	 * @param stdClass $repo_api Git API object.
+	 * @param string   $git      Name of git host.
+	 * @param stdClass $repo     Repository object.
 	 *
-	 * @return \stdClass
+	 * @return stdClass
 	 */
 	public function set_repo_api( $repo_api, $git, $repo ) {
 		if ( 'gitea' === $git ) {
@@ -140,8 +141,8 @@ class Bootstrap {
 	/**
 	 * Add API specific repo data.
 	 *
-	 * @param array     $arr  Array of repo API data.
-	 * @param \stdClass $repo Repository object.
+	 * @param array    $arr  Array of repo API data.
+	 * @param stdClass $repo Repository object.
 	 *
 	 * @return array
 	 */
@@ -158,10 +159,10 @@ class Bootstrap {
 	/**
 	 * Add API specific URL data.
 	 *
-	 * @param array     $type          Array of API type data.
-	 * @param \stdClass $repo          Repository object.
-	 * @param bool      $download_link Boolean indicating a download link.
-	 * @param string    $endpoint      API URL endpoint.
+	 * @param array    $type          Array of API type data.
+	 * @param stdClass $repo          Repository object.
+	 * @param bool     $download_link Boolean indicating a download link.
+	 * @param string   $endpoint      API URL endpoint.
 	 *
 	 * @return array
 	 */
@@ -248,8 +249,8 @@ class Bootstrap {
 	/**
 	 * Convert HHTP remote body response to JSON.
 	 *
-	 * @param array     $response HTTP GET response.
-	 * @param \stdClass $obj API object.
+	 * @param array    $response HTTP GET response.
+	 * @param stdClass $obj API object.
 	 *
 	 * @return array
 	 */
@@ -267,12 +268,12 @@ class Bootstrap {
 	/**
 	 * Parse API release asset.
 	 *
-	 * @param \stdClass $response API response object.
-	 * @param string    $git      Name of git host.
-	 * @param string    $request  Schema of API request.
-	 * @param \stdClass $obj      Current class object.
+	 * @param stdClass $response API response object.
+	 * @param string   $git      Name of git host.
+	 * @param string   $request  Schema of API request.
+	 * @param stdClass $obj      Current class object.
 	 *
-	 * @return \stdClass|string
+	 * @return stdClass|string
 	 */
 	public function parse_release_asset( $response, $git, $request, $obj ) {
 		if ( 'gitea' === $git ) {
@@ -301,12 +302,12 @@ class Bootstrap {
 	/**
 	 * Filter to return API specific language pack data.
 	 *
-	 * @param \stdClass $response Object of Language Pack API response.
-	 * @param string    $git      Name of git host.
-	 * @param array     $headers  Array of repo headers.
-	 * @param \stdClass $obj      Current class object.
+	 * @param stdClass $response Object of Language Pack API response.
+	 * @param string   $git      Name of git host.
+	 * @param array    $headers  Array of repo headers.
+	 * @param stdClass $obj      Current class object.
 	 *
-	 * @return \stdClass
+	 * @return stdClass
 	 */
 	public function set_language_pack_json( $response, $git, $headers, $obj ) {
 		if ( 'gitea' === $git ) {
@@ -325,7 +326,7 @@ class Bootstrap {
 	 *
 	 * @param null|string $package URL to language pack.
 	 * @param string      $git     Name of git host.
-	 * @param \stdClass   $locale  Object of language pack data.
+	 * @param stdClass    $locale  Object of language pack data.
 	 * @param array       $headers Array of repository headers.
 	 *
 	 * @return string

@@ -11,6 +11,8 @@
 namespace Fragen\Git_Updater\API;
 
 use Fragen\Singleton;
+use stdClass;
+use WP_Dismiss_Notice;
 
 /*
  * Exit if called directly.
@@ -31,7 +33,7 @@ class Gitea_API extends API implements API_Interface {
 	/**
 	 * Constructor.
 	 *
-	 * @param \stdClass $type plugin|theme.
+	 * @param stdClass $type plugin|theme.
 	 */
 	public function __construct( $type = null ) {
 		parent::__construct();
@@ -225,9 +227,9 @@ class Gitea_API extends API implements API_Interface {
 	/**
 	 * Parse API response call and return only array of tag numbers.
 	 *
-	 * @param \stdClass|array $response Response from API call for tags.
+	 * @param stdClass|array $response Response from API call for tags.
 	 *
-	 * @return \stdClass|array|bool Array of tag numbers, object is error.
+	 * @return stdClass|array|bool Array of tag numbers, object is error.
 	 */
 	public function parse_tag_response( $response ) {
 		if ( $this->validate_response( $response ) ) {
@@ -253,9 +255,9 @@ class Gitea_API extends API implements API_Interface {
 	/**
 	 * Parse API response and return array of meta variables.
 	 *
-	 * @param \stdClass|array $response Response from API call.
+	 * @param stdClass|array $response Response from API call.
 	 *
-	 * @return array|\stdClass|bool $arr Array of meta variables.
+	 * @return array|stdClass|bool $arr Array of meta variables.
 	 */
 	public function parse_meta_response( $response ) {
 		if ( $this->validate_response( $response ) ) {
@@ -286,9 +288,9 @@ class Gitea_API extends API implements API_Interface {
 	/**
 	 * Parse API response and return array with changelog in base64.
 	 *
-	 * @param \stdClass|array $response Response from API call.
+	 * @param stdClass|array $response Response from API call.
 	 *
-	 * @return void|array|\stdClass $arr Array of changes in base64, object if error.
+	 * @return void|array|stdClass $arr Array of changes in base64, object if error.
 	 */
 	public function parse_changelog_response( $response ) {
 	}
@@ -296,7 +298,7 @@ class Gitea_API extends API implements API_Interface {
 	/**
 	 * Parse API response and return array of branch data.
 	 *
-	 * @param \stdClass $response API response.
+	 * @param stdClass $response API response.
 	 *
 	 * @return array Array of branch data.
 	 */
@@ -318,8 +320,8 @@ class Gitea_API extends API implements API_Interface {
 	/**
 	 * Parse tags and create download links.
 	 *
-	 * @param \stdClass|array $response  Response from API call.
-	 * @param array           $repo_type Array of repository data.
+	 * @param stdClass|array $response  Response from API call.
+	 * @param array          $repo_type Array of repository data.
 	 *
 	 * @return array
 	 */
@@ -348,7 +350,7 @@ class Gitea_API extends API implements API_Interface {
 	/**
 	 * Parse remote root files/dirs.
 	 *
-	 * @param \stdClass|array $response  Response from API call.
+	 * @param stdClass|array $response  Response from API call.
 	 *
 	 * @return array
 	 */
@@ -373,9 +375,9 @@ class Gitea_API extends API implements API_Interface {
 	/**
 	 * Parse remote assets directory.
 	 *
-	 * @param \stdClass|array $response Response from API call.
+	 * @param stdClass|array $response Response from API call.
 	 *
-	 * @return \stdClass|array
+	 * @return stdClass|array
 	 */
 	protected function parse_asset_dir_response( $response ) {
 		$assets = [];
@@ -534,7 +536,7 @@ class Gitea_API extends API implements API_Interface {
 				'git'   => 'gitea',
 				'error' => true,
 			];
-			if ( ! \WP_Dismiss_Notice::is_admin_notice_active( 'gitea-error-1' ) ) {
+			if ( ! WP_Dismiss_Notice::is_admin_notice_active( 'gitea-error-1' ) ) {
 				return;
 			}
 			?>
