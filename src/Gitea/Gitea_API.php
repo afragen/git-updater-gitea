@@ -326,11 +326,10 @@ class Gitea_API extends API implements API_Interface {
 	 * @return array
 	 */
 	protected function parse_tags( $response, $repo_type ) {
-		$tags     = [];
-		$rollback = [];
+		$tags = [];
 
 		foreach ( (array) $response as $tag ) {
-			$download_link    = implode(
+			$download_base = implode(
 				'/',
 				[
 					$repo_type['base_uri'],
@@ -340,11 +339,15 @@ class Gitea_API extends API implements API_Interface {
 					'archive/',
 				]
 			);
-			$tags[]           = $tag;
-			$rollback[ $tag ] = $download_link . $tag . '.zip';
+
+			// Ignore leading 'v' and skip anything with dash or words.
+			if ( ! preg_match( '/[^v]+[-a-z]+/', $tag ) ) {
+				$tags[ $tag ] = $download_base . $tag . '.zip';
+			}
+			uksort( $tags, fn ( $a, $b ) => version_compare( ltrim( $b, 'v' ), ltrim( $a, 'v' ) ) );
 		}
 
-		return [ $tags, $rollback ];
+		return $tags;
 	}
 
 	/**
