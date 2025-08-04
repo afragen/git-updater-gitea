@@ -1,4 +1,6 @@
 [unreleased]
+
+#### 2.5.0 / 2025-08-04
 * add error checking to `parse_contents_response()`
 * un-escape using `use`
 * update `parse_tags()`
