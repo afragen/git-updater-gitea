@@ -129,9 +129,25 @@ class Gitea_API extends API implements API_Interface {
 	 *
 	 * @return false
 	 */
-	public function get_release_asset() {
-		// TODO: eventually figure this out.
-		return false;
+	public function get_release_asset( $tag = null ) {
+		$tag      = $tag ?: $this->type->newest_tag;
+		$releases = $this->get_remote_tag();
+		if ( is_wp_error( $releases ) || empty( $releases ) ) {
+			return null;
+		}
+
+		foreach ( (array) $releases as $release ) {
+			if ( $release->tag_name === $tag && ! empty( $release->assets ) ) {
+				// Check if the asset is a zip file.
+				foreach ( $release->assets as $asset ) {
+					if ( '.zip' === substr( $asset->name, -4 ) ) {
+						return $asset->browser_download_url;
+					}
+				}
+			}
+		}
+
+		return null;
 	}
 
 	/**
@@ -160,26 +176,33 @@ class Gitea_API extends API implements API_Interface {
 	 * @return string $endpoint
 	 */
 	public function construct_download_link( $branch_switch = false ) {
-		self::$method       = 'download_link';
-		$download_link_base = $this->get_api_url( '/repos/:owner/:repo/archive/', true );
-		$endpoint           = '';
+		self::$method = 'download_link';
+		$endpoint     = '';
 
-		/*
-		 * If a branch has been given, use branch.
-		 * If branch is primary branch (default) and tags are used, use newest tag.
-		 */
+		// If a branch has been given, use branch.
+		// If branch is primary branch (default) and tags are used, use newest tag.
 		if ( $this->type->primary_branch !== $this->type->branch || empty( $this->type->tags ) ) {
-			$endpoint .= $this->type->branch . '.zip';
+			$download_link_base = $this->get_api_url( '/repos/:owner/:repo/archive/', true );
+			$endpoint          .= $this->type->branch . '.zip';
+			$download_link      = $download_link_base . $endpoint;
 		} else {
-			$endpoint .= $this->type->newest_tag . '.zip';
+			$download_link = $this->get_release_asset( $this->type->newest_tag );
+			if ( empty( $download_link ) ) {
+				$download_link_base = $this->get_api_url( '/repos/:owner/:repo/archive/', true );
+				$endpoint          .= $this->type->newest_tag . '.zip';
+				$download_link      = $download_link_base . $endpoint;
+			}
 		}
 
 		// Create endpoint for branch switching.
 		if ( $branch_switch ) {
-			$endpoint = $branch_switch . '.zip';
+			$download_link = $this->get_release_asset( $branch_switch );
+			if ( empty( $download_link ) ) {
+				$download_link_base = $this->get_api_url( '/repos/:owner/:repo/archive/', true );
+				$endpoint           = $branch_switch . '.zip';
+				$download_link      = $download_link_base . $endpoint;
+			}
 		}
-
-		$download_link = $download_link_base . $endpoint;
 
 		/**
 		 * Filter download link so developers can point to specific ZipFile
@@ -189,7 +212,7 @@ class Gitea_API extends API implements API_Interface {
 		 * @since 10.0.0
 		 *
 		 * @param string    $download_link Download URL.
-		 * @param /stdClass $this->type    Repository object.
+		 * @param \stdClass $this->type    Repository object.
 		 * @param string    $branch_switch Branch or tag for rollback or branch switching.
 		 */
 		return apply_filters( 'gu_post_construct_download_link', $download_link, $this->type, $branch_switch );
@@ -546,7 +569,7 @@ class Gitea_API extends API implements API_Interface {
 			<div data-dismissible="gitea-error-1" class="error notice is-dismissible">
 				<p>
 					<?php esc_html_e( 'You must set a Gitea Access Token.', 'git-updater-gitea' ); ?>
-				</p>
+			</p>
 			</div>
 			<?php
 		}
