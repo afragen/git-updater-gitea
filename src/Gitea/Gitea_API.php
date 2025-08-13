@@ -188,9 +188,9 @@ class Gitea_API extends API implements API_Interface {
 		 * @since 8.8.0
 		 * @since 10.0.0
 		 *
-		 * @param string    $download_link Download URL.
-		 * @param /stdClass $this->type    Repository object.
-		 * @param string    $branch_switch Branch or tag for rollback or branch switching.
+		 * @param string   $download_link Download URL.
+		 * @param stdClass $this->type    Repository object.
+		 * @param string   $branch_switch Branch or tag for rollback or branch switching.
 		 */
 		return apply_filters( 'gu_post_construct_download_link', $download_link, $this->type, $branch_switch );
 	}
