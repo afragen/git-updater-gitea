@@ -344,8 +344,8 @@ class Gitea_API extends API implements API_Interface {
 			if ( ! preg_match( '/[^v]+[-a-z]+/', $tag ) ) {
 				$tags[ $tag ] = $download_base . $tag . '.zip';
 			}
-			uksort( $tags, fn ( $a, $b ) => version_compare( ltrim( $b, 'v' ), ltrim( $a, 'v' ) ) );
 		}
+		uksort( $tags, fn ( $a, $b ) => version_compare( ltrim( $b, 'v' ), ltrim( $a, 'v' ) ) );
 
 		return $tags;
 	}
