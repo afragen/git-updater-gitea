@@ -135,6 +135,15 @@ class Gitea_API extends API implements API_Interface {
 	}
 
 	/**
+	 * Return array of release assets.
+	 *
+	 * @return array
+	 */
+	public function get_release_assets() {
+		return $this->get_api_release_assets( 'gitea', '/repos/:owner/:repo/releases' );
+	}
+
+	/**
 	 * Return list of repository assets.
 	 *
 	 * @return array
@@ -163,6 +172,25 @@ class Gitea_API extends API implements API_Interface {
 		self::$method       = 'download_link';
 		$download_link_base = $this->get_api_url( '/repos/:owner/:repo/archive/', true );
 		$endpoint           = '';
+
+		// Release asset.
+		if ( $this->use_release_asset( $branch_switch ) ) {
+			$release_assets = $this->get_release_assets();
+			if ( ! $release_assets ) {
+				return '';
+			}
+			$release_assets['assets'] = $release_assets['assets'] ?? [];
+			$release_asset            = reset( $release_assets );
+
+			if ( empty( $this->response['release_asset_download'] ) ) {
+				$this->set_repo_cache( 'release_asset_download', $release_asset );
+			}
+			if ( ! empty( $this->response['release_asset_download'] ) ) {
+				return $this->response['release_asset_download'];
+			}
+
+			return $this->get_release_asset_redirect( $release_asset, true );
+		}
 
 		/*
 		 * If a branch has been given, use branch.
