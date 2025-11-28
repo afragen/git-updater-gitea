@@ -135,6 +135,15 @@ class Gitea_API extends API implements API_Interface {
 	}
 
 	/**
+	 * Return array of release assets.
+	 *
+	 * @return array
+	 */
+	public function get_release_assets() {
+		return $this->get_api_release_assets( 'gitea', '/repos/:owner/:repo/releases' );
+	}
+
+	/**
 	 * Return list of repository assets.
 	 *
 	 * @return array
@@ -164,6 +173,25 @@ class Gitea_API extends API implements API_Interface {
 		$download_link_base = $this->get_api_url( '/repos/:owner/:repo/archive/', true );
 		$endpoint           = '';
 
+		// Release asset.
+		if ( $this->use_release_asset( $branch_switch ) ) {
+			$release_assets = $this->get_release_assets();
+			if ( ! $release_assets ) {
+				return '';
+			}
+			$release_assets['assets'] = $release_assets['assets'] ?? [];
+			$release_asset            = reset( $release_assets );
+
+			if ( empty( $this->response['release_asset_download'] ) ) {
+				$this->set_repo_cache( 'release_asset_download', $release_asset );
+			}
+			if ( ! empty( $this->response['release_asset_download'] ) ) {
+				return $this->response['release_asset_download'];
+			}
+
+			return $this->get_release_asset_redirect( $release_asset, true );
+		}
+
 		/*
 		 * If a branch has been given, use branch.
 		 * If branch is primary branch (default) and tags are used, use newest tag.
@@ -188,9 +216,9 @@ class Gitea_API extends API implements API_Interface {
 		 * @since 8.8.0
 		 * @since 10.0.0
 		 *
-		 * @param string    $download_link Download URL.
-		 * @param /stdClass $this->type    Repository object.
-		 * @param string    $branch_switch Branch or tag for rollback or branch switching.
+		 * @param string   $download_link Download URL.
+		 * @param stdClass $this->type    Repository object.
+		 * @param string   $branch_switch Branch or tag for rollback or branch switching.
 		 */
 		return apply_filters( 'gu_post_construct_download_link', $download_link, $this->type, $branch_switch );
 	}
@@ -273,12 +301,12 @@ class Gitea_API extends API implements API_Interface {
 		array_filter(
 			$response,
 			function ( $e ) use ( &$arr ) {
-				$arr['private']      = $e->private;
-				$arr['last_updated'] = $e->updated_at;
-				$arr['added']        = $e->created_at;
-				$arr['watchers']     = $e->watchers_count;
-				$arr['forks']        = $e->forks_count;
-				$arr['open_issues']  = isset( $e->open_issues_count ) ? $e->open_issues_count : 0;
+				$arr['private']      = $e->private ?? false;
+				$arr['last_updated'] = $e->updated_at ?? '';
+				$arr['added']        = $e->created_at ?? '';
+				$arr['watchers']     = $e->watchers_count ?? 0;
+				$arr['forks']        = $e->forks_count ?? 0;
+				$arr['open_issues']  = $e->open_issues_count ?? 0;
 			}
 		);
 
@@ -293,6 +321,20 @@ class Gitea_API extends API implements API_Interface {
 	 * @return void|array|stdClass $arr Array of changes in base64, object if error.
 	 */
 	public function parse_changelog_response( $response ) {
+		if ( $this->validate_response( $response ) ) {
+			return $response;
+		}
+		$arr      = [];
+		$response = [ $response ];
+
+		array_filter(
+			$response,
+			function ( $e ) use ( &$arr ) {
+				$arr['changes'] = $e->content;
+			}
+		);
+
+		return $arr;
 	}
 
 	/**
@@ -344,8 +386,8 @@ class Gitea_API extends API implements API_Interface {
 			if ( ! preg_match( '/[^v]+[-a-z]+/', $tag ) ) {
 				$tags[ $tag ] = $download_base . $tag . '.zip';
 			}
-			uksort( $tags, fn ( $a, $b ) => version_compare( ltrim( $b, 'v' ), ltrim( $a, 'v' ) ) );
 		}
+		uksort( $tags, fn ( $a, $b ) => version_compare( ltrim( $b, 'v' ), ltrim( $a, 'v' ) ) );
 
 		return $tags;
 	}

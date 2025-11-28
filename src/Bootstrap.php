@@ -24,7 +24,7 @@ if ( ! defined( 'WPINC' ) ) {
 add_action(
 	'init',
 	function () {
-		load_plugin_textdomain( 'git-updater-gitlab' );
+		load_plugin_textdomain( 'git-updater-gitea' );
 	}
 );
 
