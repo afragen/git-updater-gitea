@@ -3,6 +3,7 @@
 * harden parsing of meta
 * fix text-domain in `load_plugin_textdomain`
 * move sort outside loop
+* move download base outside of loop
 
 #### 2.5.0 / 2025-08-04
 * add error checking to `parse_contents_response()`

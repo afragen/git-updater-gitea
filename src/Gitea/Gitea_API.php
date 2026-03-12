@@ -369,19 +369,18 @@ class Gitea_API extends API implements API_Interface {
 	 */
 	protected function parse_tags( $response, $repo_type ) {
 		$tags = [];
+		$download_base = implode(
+			'/',
+			[
+				$repo_type['base_uri'],
+				'repos',
+				$this->type->owner,
+				$this->type->slug,
+				'archive/',
+			]
+		);
 
 		foreach ( (array) $response as $tag ) {
-			$download_base = implode(
-				'/',
-				[
-					$repo_type['base_uri'],
-					'repos',
-					$this->type->owner,
-					$this->type->slug,
-					'archive/',
-				]
-			);
-
 			// Ignore leading 'v' and skip anything with dash or words.
 			if ( ! preg_match( '/[^v]+[-a-z]+/', $tag ) ) {
 				$tags[ $tag ] = $download_base . $tag . '.zip';
