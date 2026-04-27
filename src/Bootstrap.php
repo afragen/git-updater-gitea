@@ -277,7 +277,7 @@ class Bootstrap {
 	 */
 	public function parse_release_asset( $response, $git, $request, $obj ) {
 		if ( 'gitea' === $git ) {
-			// TODO: make work.
+			// TODO: make work, currently same as GitHub, but may need to be different.
 		}
 
 		return $response;
