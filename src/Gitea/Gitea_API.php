@@ -490,6 +490,33 @@ class Gitea_API extends API implements API_Interface {
 				'class' => $auth_required['gitea'] ? '' : 'hidden',
 			]
 		);
+
+		add_settings_field(
+			'gitea_server',
+			esc_html__( 'Gitea Server URL', 'git-updater-gitea' ),
+			[ Singleton::get_instance( 'Settings', $this ), 'token_callback_text' ],
+			'git_updater_gitea_install_settings',
+			'gitea_settings',
+			[ 'id' => 'gitea_server', 'placeholder' => 'https://gitea.example.com' ]
+		);
+
+		add_settings_field(
+			'gitea_client_id',
+			esc_html__( 'Gitea OAuth App Client ID', 'git-updater-gitea' ),
+			[ Singleton::get_instance( 'Settings', $this ), 'token_callback_text' ],
+			'git_updater_gitea_install_settings',
+			'gitea_settings',
+			[ 'id' => 'gitea_client_id' ]
+		);
+
+		add_settings_field(
+			'gitea_oauth_connect',
+			esc_html__( 'Gitea OAuth', 'git-updater-gitea' ),
+			[ Singleton::get_instance( 'OAuth\OAuth_Connect', $this ), 'render_connect_field' ],
+			'git_updater_gitea_install_settings',
+			'gitea_settings',
+			[ 'provider' => 'gitea' ]
+		);
 	}
 
 	/**
