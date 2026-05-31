@@ -12,7 +12,6 @@ namespace Fragen\Git_Updater\API;
 
 use Fragen\Singleton;
 use stdClass;
-use WP_Dismiss_Notice;
 
 /*
  * Exit if called directly.
@@ -37,8 +36,7 @@ class Gitea_API extends API implements API_Interface {
 	 */
 	public function __construct( $type = null ) {
 		parent::__construct();
-		$this->type     = $type;
-		$this->response = [];
+		$this->type = $type;
 		$this->set_default_credentials();
 		$this->settings_hook( $this );
 		$this->add_settings_subtab();
@@ -49,16 +47,10 @@ class Gitea_API extends API implements API_Interface {
 	 * Set default credentials if option not set.
 	 */
 	protected function set_default_credentials() {
-		$running_servers = Singleton::get_instance( 'Base', $this )->get_running_git_servers();
 		$set_credentials = false;
 		if ( ! isset( static::$options['gitea_access_token'] ) ) {
 			static::$options['gitea_access_token'] = null;
 			$set_credentials                       = true;
-		}
-		if ( empty( static::$options['gitea_access_token'] )
-			&& in_array( 'gitea', $running_servers, true )
-		) {
-			$this->gitea_error_notices();
 		}
 
 		if ( $set_credentials ) {
@@ -80,7 +72,7 @@ class Gitea_API extends API implements API_Interface {
 	/**
 	 * Get remote info for tags.
 	 *
-	 * @return bool
+	 * @return bool|null
 	 */
 	public function get_remote_tag() {
 		return $this->get_remote_api_tag( 'gitea', '/repos/:owner/:repo/releases' );
@@ -91,7 +83,7 @@ class Gitea_API extends API implements API_Interface {
 	 *
 	 * @param null $changes Changelog filename - (deprecated).
 	 *
-	 * @return mixed
+	 * @return bool|null
 	 */
 	public function get_remote_changes( $changes ) {
 		return $this->get_remote_api_changes( 'gitea', $changes, '/repos/:owner/:repo/raw/:branch/:changelog' );
@@ -100,7 +92,7 @@ class Gitea_API extends API implements API_Interface {
 	/**
 	 * Read and parse remote readme.txt.
 	 *
-	 * @return mixed
+	 * @return bool|null
 	 */
 	public function get_remote_readme() {
 		return $this->get_remote_api_readme( 'gitea', '/repos/:owner/:repo/raw/:branch/:readme' );
@@ -109,7 +101,7 @@ class Gitea_API extends API implements API_Interface {
 	/**
 	 * Read the repository meta from API.
 	 *
-	 * @return mixed
+	 * @return bool|null
 	 */
 	public function get_repo_meta() {
 		return $this->get_remote_api_repo_meta( 'gitea', '/repos/:owner/:repo' );
@@ -118,7 +110,7 @@ class Gitea_API extends API implements API_Interface {
 	/**
 	 * Create array of branches and download links as array.
 	 *
-	 * @return mixed
+	 * @return bool|null
 	 */
 	public function get_remote_branches() {
 		return $this->get_remote_api_branches( 'gitea', '/repos/:owner/:repo/branches' );
@@ -135,9 +127,18 @@ class Gitea_API extends API implements API_Interface {
 	}
 
 	/**
-	 * Return list of repository assets.
+	 * Return array of release assets.
 	 *
 	 * @return array
+	 */
+	public function get_release_assets() {
+		return $this->get_api_release_assets( 'gitea', '/repos/:owner/:repo/releases' );
+	}
+
+	/**
+	 * Return list of repository assets.
+	 *
+	 * @return bool|null
 	 */
 	public function get_repo_assets() {
 		return $this->get_remote_api_assets( 'gitea', '/repos/:owner/:repo/contents/:path' );
@@ -146,7 +147,7 @@ class Gitea_API extends API implements API_Interface {
 	/**
 	 * Return list of files at GitHub repo root.
 	 *
-	 * @return array
+	 * @return bool|null
 	 */
 	public function get_repo_contents() {
 		return $this->get_remote_api_contents( 'gitea', '/repos/:owner/:repo/contents/' );
@@ -163,6 +164,40 @@ class Gitea_API extends API implements API_Interface {
 		self::$method       = 'download_link';
 		$download_link_base = $this->get_api_url( '/repos/:owner/:repo/archive/', true );
 		$endpoint           = '';
+		$cache              = $this->get_repo_cache( $this->type->slug ?? false, false );
+
+		// Release asset.
+		if ( $this->use_release_asset( $branch_switch ) ) {
+			$release_assets = $this->get_release_assets();
+			if ( ! $release_assets ) {
+				return '';
+			}
+			$release_assets['assets'] = $release_assets['assets'] ?? [];
+			$release_asset            = reset( $release_assets );
+
+			/*
+			 * Check if dev release asset is newer than latest release asset.
+			 *
+			 * @param bool
+			 * @param $this->type Repo type object.
+			 */
+			if ( apply_filters( 'gu_dev_release_asset', false, $this->type ) ) {
+				$current_asset_version     = array_key_first( $release_assets['assets'] ) ?? '';
+				$current_dev_asset_version = array_key_first( $release_assets['dev_assets'] ) ?? '';
+				if ( version_compare( $current_asset_version, $current_dev_asset_version, '<' ) ) {
+					$release_asset = reset( $release_assets['dev_assets'] );
+				}
+			}
+
+			if ( empty( $cache['release_asset_download'] ) ) {
+				$this->set_repo_cache( 'release_asset_download', $release_asset );
+			}
+			if ( ! empty( $cache['release_asset_download'] ) ) {
+				return $cache['release_asset_download'];
+			}
+
+			return $this->get_release_asset_redirect( $release_asset, true );
+		}
 
 		/*
 		 * If a branch has been given, use branch.
@@ -188,9 +223,9 @@ class Gitea_API extends API implements API_Interface {
 		 * @since 8.8.0
 		 * @since 10.0.0
 		 *
-		 * @param string    $download_link Download URL.
-		 * @param /stdClass $this->type    Repository object.
-		 * @param string    $branch_switch Branch or tag for rollback or branch switching.
+		 * @param string   $download_link Download URL.
+		 * @param stdClass $this->type    Repository object.
+		 * @param string   $branch_switch Branch or tag for rollback or branch switching.
 		 */
 		return apply_filters( 'gu_post_construct_download_link', $download_link, $this->type, $branch_switch );
 	}
@@ -273,12 +308,12 @@ class Gitea_API extends API implements API_Interface {
 		array_filter(
 			$response,
 			function ( $e ) use ( &$arr ) {
-				$arr['private']      = $e->private;
-				$arr['last_updated'] = $e->updated_at;
-				$arr['added']        = $e->created_at;
-				$arr['watchers']     = $e->watchers_count;
-				$arr['forks']        = $e->forks_count;
-				$arr['open_issues']  = isset( $e->open_issues_count ) ? $e->open_issues_count : 0;
+				$arr['private']      = $e->private ?? false;
+				$arr['last_updated'] = $e->updated_at ?? '';
+				$arr['added']        = $e->created_at ?? '';
+				$arr['watchers']     = $e->watchers_count ?? 0;
+				$arr['forks']        = $e->forks_count ?? 0;
+				$arr['open_issues']  = $e->open_issues_count ?? 0;
 			}
 		);
 
@@ -293,6 +328,20 @@ class Gitea_API extends API implements API_Interface {
 	 * @return void|array|stdClass $arr Array of changes in base64, object if error.
 	 */
 	public function parse_changelog_response( $response ) {
+		if ( $this->validate_response( $response ) ) {
+			return $response;
+		}
+		$arr      = [];
+		$response = [ $response ];
+
+		array_filter(
+			$response,
+			function ( $e ) use ( &$arr ) {
+				$arr['changes'] = $e->content;
+			}
+		);
+
+		return $arr;
 	}
 
 	/**
@@ -326,26 +375,25 @@ class Gitea_API extends API implements API_Interface {
 	 * @return array
 	 */
 	protected function parse_tags( $response, $repo_type ) {
-		$tags = [];
+		$tags          = [];
+		$download_base = implode(
+			'/',
+			[
+				$repo_type['base_uri'],
+				'repos',
+				$this->type->owner,
+				$this->type->slug,
+				'archive/',
+			]
+		);
 
 		foreach ( (array) $response as $tag ) {
-			$download_base = implode(
-				'/',
-				[
-					$repo_type['base_uri'],
-					'repos',
-					$this->type->owner,
-					$this->type->slug,
-					'archive/',
-				]
-			);
-
 			// Ignore leading 'v' and skip anything with dash or words.
 			if ( ! preg_match( '/[^v]+[-a-z]+/', $tag ) ) {
 				$tags[ $tag ] = $download_base . $tag . '.zip';
 			}
-			uksort( $tags, fn ( $a, $b ) => version_compare( ltrim( $b, 'v' ), ltrim( $a, 'v' ) ) );
 		}
+		uksort( $tags, fn ( $a, $b ) => version_compare( ltrim( $b, 'v' ), ltrim( $a, 'v' ) ) );
 
 		return $tags;
 	}
@@ -361,6 +409,7 @@ class Gitea_API extends API implements API_Interface {
 		$files = [];
 		$dirs  = [];
 		foreach ( $response as $content ) {
+			$content = (object) $content;
 			if ( property_exists( $content, 'type' ) && 'file' === $content->type ) {
 				$files[] = $content->name;
 			}
@@ -515,41 +564,6 @@ class Gitea_API extends API implements API_Interface {
 			</span>
 		</label>
 		<?php
-	}
-
-	/**
-	 * Display Gitea error admin notices.
-	 */
-	public function gitea_error_notices() {
-		add_action( is_multisite() ? 'network_admin_notices' : 'admin_notices', [ $this, 'gitea_error' ] );
-	}
-
-	/**
-	 * Generate error message for missing Gitea Access Token.
-	 */
-	public function gitea_error() {
-		$auth_required = $this->get_class_vars( 'Settings', 'auth_required' );
-		$error_code    = $this->get_error_codes();
-
-		if ( ! isset( $error_code['gitea'] )
-			&& empty( static::$options['gitea_access_token'] )
-			&& $auth_required['gitea']
-		) {
-			self::$error_code['gitea'] = [
-				'git'   => 'gitea',
-				'error' => true,
-			];
-			if ( ! WP_Dismiss_Notice::is_admin_notice_active( 'gitea-error-1' ) ) {
-				return;
-			}
-			?>
-			<div data-dismissible="gitea-error-1" class="error notice is-dismissible">
-				<p>
-					<?php esc_html_e( 'You must set a Gitea Access Token.', 'git-updater-gitea' ); ?>
-				</p>
-			</div>
-			<?php
-		}
 	}
 
 	/**
