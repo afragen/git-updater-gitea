@@ -1,4 +1,6 @@
 [unreleased]
+
+#### 2.6.0 / 2026-05-31 🎂
 * add release assets
 * harden parsing of meta
 * fix text-domain in `load_plugin_textdomain`
