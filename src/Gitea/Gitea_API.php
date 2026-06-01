@@ -507,6 +507,15 @@ class Gitea_API extends API implements API_Interface {
 				$client_id_args['class'] = trim( $client_id_args['class'] . ' hidden' );
 				$args['class']           = trim( $args['class'] . ' hidden' );
 			}
+
+			add_settings_field(
+				'gitea_oauth_connect',
+				esc_html__( 'Gitea OAuth', 'git-updater-gitea' ),
+				$oauth, 'render_connect_field' ],
+				'git_updater_gitea_install_settings',
+				'gitea_settings',
+				$args
+			);
 		}
 
 		add_settings_field(
@@ -534,15 +543,6 @@ class Gitea_API extends API implements API_Interface {
 				'git_updater_gitea_install_settings',
 				'gitea_settings',
 				$client_id_args
-			);
-
-			add_settings_field(
-				'gitea_oauth_connect',
-				esc_html__( 'Gitea OAuth', 'git-updater-gitea' ),
-				[ Singleton::get_instance( 'OAuth\OAuth_Connect', $this ), 'render_connect_field' ],
-				'git_updater_gitea_install_settings',
-				'gitea_settings',
-				$args
 			);
 	}
 
