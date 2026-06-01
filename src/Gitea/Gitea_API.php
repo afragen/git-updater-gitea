@@ -511,7 +511,7 @@ class Gitea_API extends API implements API_Interface {
 			add_settings_field(
 				'gitea_oauth_connect',
 				esc_html__( 'Gitea OAuth', 'git-updater-gitea' ),
-				$oauth, 'render_connect_field' ],
+				[ $oauth, 'render_connect_field' ],
 				'git_updater_gitea_install_settings',
 				'gitea_settings',
 				$args
