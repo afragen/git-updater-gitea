@@ -8,6 +8,7 @@
 * move download base outside of loop
 * add `gu_dev_release_asset` filter
 * use local variables
+* show/hide settings fields based on OAuth setting
 
 #### 2.5.0 / 2025-08-04
 * add error checking to `parse_contents_response()`
