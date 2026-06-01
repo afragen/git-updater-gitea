@@ -478,45 +478,72 @@ class Gitea_API extends API implements API_Interface {
 			);
 		}
 
+		$token_args     = [
+			'id'    => 'gitea_access_token',
+			'token' => true,
+			'class' => $auth_required['gitea'] ? '' : 'hidden',
+		];
+		$server_args    = [
+			'id'          => 'gitea_server',
+			'placeholder' => 'https://gitea.example.com',
+			'class'       => '',
+		];
+		$client_id_args = [
+			'id'    => 'gitea_client_id',
+			'class' => '',
+		];
+		$args           = [
+			'provider' => 'gitea',
+			'class'    => '',
+		];
+
+		if ( class_exists( 'Fragen\Git_Updater\OAuth\OAuth_Connect' ) ) {
+			$oauth = Singleton::get_instance( 'OAuth\OAuth_Connect', $this );
+			if ( $oauth->is_oauth_token( 'gitea' ) ) {
+				$token_args['class'] = trim( $token_args['class'] . ' hidden' );
+			}
+			if ( ! empty( static::$options['gitea_access_token'] ) && ! $oauth->is_oauth_token( 'gitea' ) ) {
+				$server_args['class']    = trim( $server_args['class'] . ' hidden' );
+				$client_id_args['class'] = trim( $client_id_args['class'] . ' hidden' );
+				$args['class']           = trim( $args['class'] . ' hidden' );
+			}
+		}
+
 		add_settings_field(
 			'gitea_access_token',
 			esc_html__( 'Gitea Access Token', 'git-updater-gitea' ),
 			[ Singleton::get_instance( 'Settings', $this ), 'token_callback_text' ],
 			'git_updater_gitea_install_settings',
 			'gitea_settings',
-			[
-				'id'    => 'gitea_access_token',
-				'token' => true,
-				'class' => $auth_required['gitea'] ? '' : 'hidden',
-			]
+			$token_args
 		);
 
-		add_settings_field(
-			'gitea_server',
-			esc_html__( 'Gitea Server URL', 'git-updater-gitea' ),
-			[ Singleton::get_instance( 'Settings', $this ), 'token_callback_text' ],
-			'git_updater_gitea_install_settings',
-			'gitea_settings',
-			[ 'id' => 'gitea_server', 'placeholder' => 'https://gitea.example.com' ]
-		);
+			add_settings_field(
+				'gitea_server',
+				esc_html__( 'Gitea Server URL', 'git-updater-gitea' ),
+				[ Singleton::get_instance( 'Settings', $this ), 'token_callback_text' ],
+				'git_updater_gitea_install_settings',
+				'gitea_settings',
+				$server_args
+			);
 
-		add_settings_field(
-			'gitea_client_id',
-			esc_html__( 'Gitea OAuth App Client ID', 'git-updater-gitea' ),
-			[ Singleton::get_instance( 'Settings', $this ), 'token_callback_text' ],
-			'git_updater_gitea_install_settings',
-			'gitea_settings',
-			[ 'id' => 'gitea_client_id' ]
-		);
+			add_settings_field(
+				'gitea_client_id',
+				esc_html__( 'Gitea OAuth App Client ID', 'git-updater-gitea' ),
+				[ Singleton::get_instance( 'Settings', $this ), 'token_callback_text' ],
+				'git_updater_gitea_install_settings',
+				'gitea_settings',
+				$client_id_args
+			);
 
-		add_settings_field(
-			'gitea_oauth_connect',
-			esc_html__( 'Gitea OAuth', 'git-updater-gitea' ),
-			[ Singleton::get_instance( 'OAuth\OAuth_Connect', $this ), 'render_connect_field' ],
-			'git_updater_gitea_install_settings',
-			'gitea_settings',
-			[ 'provider' => 'gitea' ]
-		);
+			add_settings_field(
+				'gitea_oauth_connect',
+				esc_html__( 'Gitea OAuth', 'git-updater-gitea' ),
+				[ Singleton::get_instance( 'OAuth\OAuth_Connect', $this ), 'render_connect_field' ],
+				'git_updater_gitea_install_settings',
+				'gitea_settings',
+				$args
+			);
 	}
 
 	/**
