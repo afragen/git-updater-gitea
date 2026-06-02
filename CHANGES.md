@@ -1,5 +1,6 @@
 [unreleased]
 * show/hide settings fields based on OAuth setting
+* add note about tokens stored in plaintext
 
 #### 2.6.0 / 2026-05-31 🎂
 * add release assets
