@@ -164,7 +164,6 @@ class Gitea_API extends API implements API_Interface {
 		self::$method       = 'download_link';
 		$download_link_base = $this->get_api_url( '/repos/:owner/:repo/archive/', true );
 		$endpoint           = '';
-		$cache              = $this->get_repo_cache( $this->type->slug ?? false, false );
 
 		// Release asset.
 		if ( $this->use_release_asset( $branch_switch ) ) {
@@ -189,14 +188,8 @@ class Gitea_API extends API implements API_Interface {
 				}
 			}
 
-			if ( empty( $cache['release_asset_download'] ) ) {
-				$this->set_repo_cache( 'release_asset_download', $release_asset );
-			}
-			if ( ! empty( $cache['release_asset_download'] ) ) {
-				return $cache['release_asset_download'];
-			}
-
-			return $this->get_release_asset_redirect( $release_asset, true );
+			$this->set_repo_cache( 'release_asset_download', $release_asset );
+			return $release_asset;
 		}
 
 		/*
@@ -478,18 +471,72 @@ class Gitea_API extends API implements API_Interface {
 			);
 		}
 
+		$token_args     = [
+			'id'    => 'gitea_access_token',
+			'token' => true,
+			'class' => $auth_required['gitea'] ? '' : 'hidden',
+		];
+		$server_args    = [
+			'id'          => 'gitea_server',
+			'placeholder' => 'https://gitea.example.com',
+			'class'       => '',
+		];
+		$client_id_args = [
+			'id'    => 'gitea_client_id',
+			'class' => '',
+		];
+		$args           = [
+			'provider' => 'gitea',
+			'class'    => '',
+		];
+
+		if ( class_exists( 'Fragen\Git_Updater\OAuth\OAuth_Connect' ) ) {
+			$oauth = Singleton::get_instance( 'OAuth\OAuth_Connect', $this );
+			if ( $oauth->is_oauth_token( 'gitea' ) ) {
+				$token_args['class'] = trim( $token_args['class'] . ' hidden' );
+			}
+			if ( ! empty( static::$options['gitea_access_token'] ) && ! $oauth->is_oauth_token( 'gitea' ) ) {
+				$server_args['class']    = trim( $server_args['class'] . ' hidden' );
+				$client_id_args['class'] = trim( $client_id_args['class'] . ' hidden' );
+				$args['class']           = trim( $args['class'] . ' hidden' );
+			}
+
+			add_settings_field(
+				'gitea_oauth_connect',
+				esc_html__( 'Gitea OAuth', 'git-updater-gitea' ),
+				[ $oauth, 'render_connect_field' ],
+				'git_updater_gitea_install_settings',
+				'gitea_settings',
+				$args
+			);
+		}
+
 		add_settings_field(
 			'gitea_access_token',
 			esc_html__( 'Gitea Access Token', 'git-updater-gitea' ),
 			[ Singleton::get_instance( 'Settings', $this ), 'token_callback_text' ],
 			'git_updater_gitea_install_settings',
 			'gitea_settings',
-			[
-				'id'    => 'gitea_access_token',
-				'token' => true,
-				'class' => $auth_required['gitea'] ? '' : 'hidden',
-			]
+			$token_args
 		);
+
+			add_settings_field(
+				'gitea_server',
+				esc_html__( 'Gitea Server URL', 'git-updater-gitea' ),
+				[ Singleton::get_instance( 'Settings', $this ), 'token_callback_text' ],
+				'git_updater_gitea_install_settings',
+				'gitea_settings',
+				$server_args
+			);
+
+			add_settings_field(
+				'gitea_client_id',
+				esc_html__( 'Gitea OAuth App Client ID', 'git-updater-gitea' ),
+				[ Singleton::get_instance( 'Settings', $this ), 'token_callback_text' ],
+				'git_updater_gitea_install_settings',
+				'gitea_settings',
+				$client_id_args
+			);
 	}
 
 	/**
@@ -532,6 +579,7 @@ class Gitea_API extends API implements API_Interface {
 	 */
 	public function print_section_gitea_token() {
 		esc_html_e( 'Enter your Gitea Access Token.', 'git-updater-gitea' );
+		printf( '<p class="description">%s</p>', esc_html__( 'Access tokens are stored in this site\'s options table. Database backups contain them in cleartext — handle backup files accordingly.', 'git-updater-gitea' ) );
 		$icon = plugin_dir_url( dirname( __DIR__ ) ) . 'assets/gitea-logo.svg';
 		printf( '<img class="git-oauth-icon" src="%s" alt="Gitea logo" />', esc_attr( $icon ) );
 	}

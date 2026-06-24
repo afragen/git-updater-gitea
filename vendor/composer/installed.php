@@ -3,7 +3,7 @@
         'name' => 'afragen/git-updater-gitea',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '84db3739257126dc91c55bb70dda0b0b59880ca3',
+        'reference' => 'b42523090e35e30df6ed2d7116a262e3a438cd13',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'afragen/git-updater-gitea' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '84db3739257126dc91c55bb70dda0b0b59880ca3',
+            'reference' => 'b42523090e35e30df6ed2d7116a262e3a438cd13',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

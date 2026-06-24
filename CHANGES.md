@@ -1,5 +1,10 @@
 [unreleased]
 
+#### 2.7.0 / 2026-06-24
+* show/hide settings fields based on OAuth setting
+* add note about tokens stored in plaintext
+* no longer using release asset redirect
+
 #### 2.6.0 / 2026-05-31 🎂
 * add release assets
 * harden parsing of meta
