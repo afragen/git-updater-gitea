@@ -2,6 +2,8 @@
 .idea
 .vscode
 
-/vendor/*
-!/vendor/composer/
-!/vendor/autoload.php
+vendor/bin
+vendor/dealerdirect
+vendor/squizlabs
+vendor/wp-coding-standards
+vendor/phpcsstandards

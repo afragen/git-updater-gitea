@@ -20,7 +20,9 @@
     "php": ">=7.2"
   },
   "require-dev": {
-    "afragen/git-updater": "dev-develop",
+    "afragen/singleton": "^1.0",
+    "erusev/parsedown": "^1.7",
+    "afragen/wp-readme-parser": "^1.0",
     "wp-coding-standards/wpcs": "^3.0.0"
   },
   "config": {

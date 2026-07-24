@@ -28,5 +28,24 @@ function _manually_load_plugin() {
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
+// Load the Git Updater base classes (API, traits, OAuth_Connect, Base, …) from a
+// sibling git-updater checkout so the API-plugin tests can extend API without
+// committing git-updater or its dependencies as a Composer package.
+$gu_src = dirname( __DIR__ ) . '/../git-updater/src/Git_Updater';
+if ( is_dir( $gu_src ) ) {
+	spl_autoload_register(
+		static function ( $class ) use ( $gu_src ) {
+			$prefix = 'Fragen\\Git_Updater\\';
+			if ( strncmp( $prefix, $class, strlen( $prefix ) ) !== 0 ) {
+				return;
+			}
+			$file = $gu_src . '/' . str_replace( '\\', '/', substr( $class, strlen( $prefix ) ) ) . '.php';
+			if ( is_file( $file ) ) {
+				require $file;
+			}
+		}
+	);
+}
+
 // Start up the WP testing environment.
 require $_tests_dir . '/includes/bootstrap.php';

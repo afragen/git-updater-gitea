@@ -6,10 +6,6 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitf46cccc817a237b054437bfb7901d7b2
 {
-    public static $files = array (
-        '8d50dc88e56bace65e1e72f6017983ed' => __DIR__ . '/..' . '/freemius/wordpress-sdk/start.php',
-    );
-
     public static $prefixLengthsPsr4 = array (
         'P' =>
         array (
@@ -20,7 +16,6 @@ class ComposerStaticInitf46cccc817a237b054437bfb7901d7b2
             'Fragen\\WP_Readme_Parser\\' => 24,
             'Fragen\\Git_Updater\\Gitea\\' => 25,
             'Fragen\\Git_Updater\\API\\' => 23,
-            'Fragen\\Git_Updater\\' => 19,
         ),
     );
 
@@ -40,10 +35,6 @@ class ComposerStaticInitf46cccc817a237b054437bfb7901d7b2
         'Fragen\\Git_Updater\\API\\' =>
         array (
             0 => __DIR__ . '/../..' . '/src/Gitea',
-        ),
-        'Fragen\\Git_Updater\\' =>
-        array (
-            0 => __DIR__ . '/..' . '/afragen/git-updater/src/Git_Updater',
         ),
     );
 
@@ -112,7 +103,6 @@ class ComposerStaticInitf46cccc817a237b054437bfb7901d7b2
         'PHPCSUtils\\Utils\\TypeString' => __DIR__ . '/..' . '/phpcsstandards/phpcsutils/PHPCSUtils/Utils/TypeString.php',
         'PHPCSUtils\\Utils\\UseStatements' => __DIR__ . '/..' . '/phpcsstandards/phpcsutils/PHPCSUtils/Utils/UseStatements.php',
         'PHPCSUtils\\Utils\\Variables' => __DIR__ . '/..' . '/phpcsstandards/phpcsutils/PHPCSUtils/Utils/Variables.php',
-        'WP_Dismiss_Notice' => __DIR__ . '/..' . '/afragen/wp-dismiss-notice/wp-dismiss-notice.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
