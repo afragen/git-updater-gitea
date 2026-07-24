@@ -11,8 +11,8 @@
  * @param string $subdir     Plugin sub-namespace, e.g. 'Bitbucket' | 'Gitea' | 'GitLab'.
  */
 
-if ( ! function_exists( 'fragen_git_updater_register_autoloader' ) ) {
-	function fragen_git_updater_register_autoloader( $plugin_dir, $subdir ) {
+if ( ! function_exists( 'git_updater_register_autoloader' ) ) {
+	function git_updater_register_autoloader( $plugin_dir, $subdir ) {
 		$prefixes = array(
 			'Fragen\\Git_Updater\\' . $subdir . '\\' => $plugin_dir . '/src',
 			'Fragen\\Git_Updater\\API\\'             => $plugin_dir . '/src/' . $subdir,

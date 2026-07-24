@@ -38,7 +38,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 // Load custom autoloader (plugin src/).
 require_once __DIR__ . '/autoloader.php';
-fragen_git_updater_register_autoloader( __DIR__, 'Gitea' );
+git_updater_register_autoloader( __DIR__, 'Gitea' );
 
 // Load Composer autoloader for vendor packages, if installed (gitignored; created by composer install).
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
