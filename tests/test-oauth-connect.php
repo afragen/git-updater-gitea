@@ -37,7 +37,7 @@ class Test_Gitea_OAuth_Connect extends WP_UnitTestCase {
 		$field = $wp_settings_fields['git_updater_gitea_install_settings']['gitea_settings']['gitea_oauth_connect'];
 		
 		$this->assertEquals( 'Gitea OAuth', $field['title'] );
-		$this->assertIs_array( $field['callback'] );
+		$this->assertIsArray( $field['callback'] );
 		$this->assertInstanceOf( Fragen\Git_Updater\OAuth\OAuth_Connect::class, $field['callback'][0] );
 		$this->assertEquals( 'render_connect_field', $field['callback'][1] );
 	}
