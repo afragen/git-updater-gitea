@@ -3,7 +3,7 @@
 * Contributors: afragen
 * Tags: gitea, api, git updater, github updater
 * Requires at least: 5.2
-* Requires PHP: 7.2
+* Requires PHP: 8.0
 * Tested up to: trunk
 * Stable tag: main
 * Donate link: https://thefragens.com/git-updater-donate
