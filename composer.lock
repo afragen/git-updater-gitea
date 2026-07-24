@@ -4,9 +4,95 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "938ab4e6a28d195db62802caa3abcf95",
+    "content-hash": "bb5bf605d1b2a45a296ddd291c9ef531",
     "packages": [],
     "packages-dev": [
+        {
+            "name": "afragen/singleton",
+            "version": "1.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/afragen/singleton.git",
+                "reference": "6a50bb80c0c4ff77bf75bea1e0ffbac7f15acc63"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/afragen/singleton/zipball/6a50bb80c0c4ff77bf75bea1e0ffbac7f15acc63",
+                "reference": "6a50bb80c0c4ff77bf75bea1e0ffbac7f15acc63",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.5"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "Singleton.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andy Fragen",
+                    "email": "andy@thefragens.com",
+                    "homepage": "https://github.com/afragen/singleton",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A singleton static proxy generator.",
+            "keywords": [
+                "singleton",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/afragen/singleton/issues",
+                "source": "https://github.com/afragen/singleton/tree/1.0.6"
+            },
+            "time": "2026-05-22T19:05:45+00:00"
+        },
+        {
+            "name": "afragen/wp-readme-parser",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/afragen/wp-readme-parser.git",
+                "reference": "051bdf79fddf3fdde9affd0ae1d23fcf6119a45b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/afragen/wp-readme-parser/zipball/051bdf79fddf3fdde9affd0ae1d23fcf6119a45b",
+                "reference": "051bdf79fddf3fdde9affd0ae1d23fcf6119a45b",
+                "shasum": ""
+            },
+            "require": {
+                "erusev/parsedown": "^1.8",
+                "php": ">=8.0 <8.6"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.59",
+                "phpstan/phpstan": "^1.11 || ^2.0",
+                "phpunit/phpunit": "^9.6 || ^10.5 || ^11.5 || ^12.0 || ^13.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Fragen\\WP_Readme_Parser\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A PHP library for parsing WordPress plugin readme.txt files into structured data.",
+            "support": {
+                "issues": "https://github.com/afragen/wp-readme-parser/issues",
+                "source": "https://github.com/afragen/wp-readme-parser/tree/1.0.3"
+            },
+            "time": "2026-05-16T19:18:30+00:00"
+        },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
             "version": "v1.2.1",
@@ -102,6 +188,62 @@
                 }
             ],
             "time": "2026-05-06T08:26:05+00:00"
+        },
+        {
+            "name": "erusev/parsedown",
+            "version": "1.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/erusev/parsedown.git",
+                "reference": "96baaad00f71ba04d76e45b4620f54d3beabd6f7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/96baaad00f71ba04d76e45b4620f54d3beabd6f7",
+                "reference": "96baaad00f71ba04d76e45b4620f54d3beabd6f7",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.5|^8.5|^9.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Parsedown": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emanuil Rusev",
+                    "email": "hello@erusev.com",
+                    "homepage": "http://erusev.com"
+                }
+            ],
+            "description": "Parser for Markdown.",
+            "homepage": "http://parsedown.org",
+            "keywords": [
+                "markdown",
+                "parser"
+            ],
+            "support": {
+                "issues": "https://github.com/erusev/parsedown/issues",
+                "source": "https://github.com/erusev/parsedown/tree/1.8.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/erusev",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-02-16T11:41:01+00:00"
         },
         {
             "name": "phpcsstandards/phpcsextra",
@@ -359,16 +501,16 @@
         },
         {
             "name": "wp-coding-standards/wpcs",
-            "version": "3.3.0",
+            "version": "3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WordPress/WordPress-Coding-Standards.git",
-                "reference": "7795ec6fa05663d716a549d0b44e47ffc8b0d4a6"
+                "reference": "469c18ceab4d642b15bad4c65ebf3b307bfd55ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WordPress/WordPress-Coding-Standards/zipball/7795ec6fa05663d716a549d0b44e47ffc8b0d4a6",
-                "reference": "7795ec6fa05663d716a549d0b44e47ffc8b0d4a6",
+                "url": "https://api.github.com/repos/WordPress/WordPress-Coding-Standards/zipball/469c18ceab4d642b15bad4c65ebf3b307bfd55ab",
+                "reference": "469c18ceab4d642b15bad4c65ebf3b307bfd55ab",
                 "shasum": ""
             },
             "require": {
@@ -378,8 +520,8 @@
                 "ext-xmlreader": "*",
                 "php": ">=7.2",
                 "phpcsstandards/phpcsextra": "^1.5.0",
-                "phpcsstandards/phpcsutils": "^1.1.0",
-                "squizlabs/php_codesniffer": "^3.13.4"
+                "phpcsstandards/phpcsutils": "^1.2.2",
+                "squizlabs/php_codesniffer": "^3.13.5"
             },
             "require-dev": {
                 "php-parallel-lint/php-console-highlighter": "^1.0.0",
@@ -421,7 +563,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2025-11-25T12:08:04+00:00"
+            "time": "2026-07-16T13:05:29+00:00"
         }
     ],
     "aliases": [],

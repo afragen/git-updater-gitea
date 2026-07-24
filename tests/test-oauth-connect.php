@@ -20,7 +20,7 @@ class Test_Gitea_OAuth_Connect extends WP_UnitTestCase {
 		global $wp_settings_fields;
 		
 		// Call add_settings to register fields
-		$api->add_settings( [ 'gitea_private' => true ] );
+		$api->add_settings( [ 'gitea' => true, 'gitea_private' => true ] );
 		
 		// Check that the OAuth connect field was registered
 		$this->assertArrayHasKey( 'gitea_oauth_connect', $wp_settings_fields['git_updater_gitea_install_settings']['gitea_settings'] );
@@ -31,13 +31,13 @@ class Test_Gitea_OAuth_Connect extends WP_UnitTestCase {
 	 */
 	public function test_oauth_connect_field_uses_correct_callback(): void {
 		$api = new Fragen\Git_Updater\API\Gitea_API();
-		$api->add_settings( [ 'gitea_private' => true ] );
+		$api->add_settings( [ 'gitea' => true, 'gitea_private' => true ] );
 		
 		global $wp_settings_fields;
 		$field = $wp_settings_fields['git_updater_gitea_install_settings']['gitea_settings']['gitea_oauth_connect'];
 		
 		$this->assertEquals( 'Gitea OAuth', $field['title'] );
-		$this->assertIs_array( $field['callback'] );
+		$this->assertIsArray( $field['callback'] );
 		$this->assertInstanceOf( Fragen\Git_Updater\OAuth\OAuth_Connect::class, $field['callback'][0] );
 		$this->assertEquals( 'render_connect_field', $field['callback'][1] );
 	}
@@ -47,7 +47,7 @@ class Test_Gitea_OAuth_Connect extends WP_UnitTestCase {
 	 */
 	public function test_oauth_connect_field_passes_correct_provider(): void {
 		$api = new Fragen\Git_Updater\API\Gitea_API();
-		$api->add_settings( [ 'gitea_private' => true ] );
+		$api->add_settings( [ 'gitea' => true, 'gitea_private' => true ] );
 		
 		global $wp_settings_fields;
 		$field = $wp_settings_fields['git_updater_gitea_install_settings']['gitea_settings']['gitea_oauth_connect'];
@@ -61,7 +61,7 @@ class Test_Gitea_OAuth_Connect extends WP_UnitTestCase {
 	 */
 	public function test_gitea_server_field_is_registered(): void {
 		$api = new Fragen\Git_Updater\API\Gitea_API();
-		$api->add_settings( [ 'gitea_private' => true ] );
+		$api->add_settings( [ 'gitea' => true, 'gitea_private' => true ] );
 		
 		global $wp_settings_fields;
 		
@@ -73,7 +73,7 @@ class Test_Gitea_OAuth_Connect extends WP_UnitTestCase {
 	 */
 	public function test_gitea_server_field_has_placeholder(): void {
 		$api = new Fragen\Git_Updater\API\Gitea_API();
-		$api->add_settings( [ 'gitea_private' => true ] );
+		$api->add_settings( [ 'gitea' => true, 'gitea_private' => true ] );
 		
 		global $wp_settings_fields;
 		$field = $wp_settings_fields['git_updater_gitea_install_settings']['gitea_settings']['gitea_server'];
@@ -88,7 +88,7 @@ class Test_Gitea_OAuth_Connect extends WP_UnitTestCase {
 	 */
 	public function test_gitea_client_id_field_is_registered(): void {
 		$api = new Fragen\Git_Updater\API\Gitea_API();
-		$api->add_settings( [ 'gitea_private' => true ] );
+		$api->add_settings( [ 'gitea' => true, 'gitea_private' => true ] );
 		
 		global $wp_settings_fields;
 		
@@ -100,7 +100,7 @@ class Test_Gitea_OAuth_Connect extends WP_UnitTestCase {
 	 */
 	public function test_gitea_client_id_field_has_correct_id(): void {
 		$api = new Fragen\Git_Updater\API\Gitea_API();
-		$api->add_settings( [ 'gitea_private' => true ] );
+		$api->add_settings( [ 'gitea' => true, 'gitea_private' => true ] );
 		
 		global $wp_settings_fields;
 		$field = $wp_settings_fields['git_updater_gitea_install_settings']['gitea_settings']['gitea_client_id'];
