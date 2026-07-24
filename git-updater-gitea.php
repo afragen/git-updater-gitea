@@ -36,8 +36,14 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-// Load Autoloader.
-require_once __DIR__ . '/vendor/autoload.php';
+// Load custom autoloader (plugin src/).
+require_once __DIR__ . '/autoloader.php';
+fragen_git_updater_register_autoloader( __DIR__, 'Gitea' );
+
+// Load Composer autoloader for vendor packages, if installed (gitignored; created by composer install).
+if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+	require_once __DIR__ . '/vendor/autoload.php';
+}
 
 ( new Bootstrap() )->load_hooks();
 
