@@ -1,5 +1,8 @@
 [unreleased]
 
+#### 2.8.0 / 2026-07-24
+* add custom autoloader
+
 #### 2.7.0 / 2026-06-24
 * show/hide settings fields based on OAuth setting
 * add note about tokens stored in plaintext
