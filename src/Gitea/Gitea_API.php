@@ -394,19 +394,13 @@ class Gitea_API extends API implements API_Interface {
 	/**
 	 * Parse remote root files/dirs.
 	 *
-	 * @param stdClass|array $response  Response from API call.
+	 * @param stdClass|array<string, mixed> $response Response from API call.
 	 *
-	 * @return array
+	 * @return array{files: list<string>, dirs: list<string>}
 	 */
 	protected function parse_contents_response( $response ) {
 		$files = [];
 		$dirs  = [];
-		if ( is_scalar( $response ) ) {
-			return [
-				'files' => $files,
-				'dirs'  => $dirs,
-			];
-		}
 
 		foreach ( $response as $content ) {
 			$content = (object) $content;
