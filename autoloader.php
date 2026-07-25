@@ -7,22 +7,28 @@
  * created by `composer install`). On a live site the main Git Updater plugin
  * provides the shared base classes (API, Singleton, …).
  *
- * @param string $plugin_dir Absolute path to the plugin directory.
- * @param string $subdir     Plugin sub-namespace, e.g. 'Bitbucket' | 'Gitea' | 'GitLab'.
+ * @package Git_Updater
  */
 
 if ( ! function_exists( 'git_updater_register_autoloader' ) ) {
+	/**
+	 * Register a PSR-4 autoloader for this plugin's own classes.
+	 *
+	 * @param string $plugin_dir Absolute path to the plugin directory.
+	 * @param string $subdir     Plugin sub-namespace, e.g. 'Bitbucket' | 'Gitea' | 'GitLab'.
+	 * @return void
+	 */
 	function git_updater_register_autoloader( $plugin_dir, $subdir ) {
-		$prefixes = array(
-			'Fragen\\Git_Updater\\' . $subdir . '\\' => $plugin_dir . '/src',
-			'Fragen\\Git_Updater\\API\\'             => $plugin_dir . '/src/' . $subdir,
-		);
+		$prefixes = [
+			'Fragen\Git_Updater\\' . $subdir . '\\' => $plugin_dir . '/src',
+			'Fragen\Git_Updater\API\\'              => $plugin_dir . '/src/' . $subdir,
+		];
 
 		spl_autoload_register(
-			static function ( $class ) use ( $prefixes ) {
+			static function ( $class_name ) use ( $prefixes ) {
 				foreach ( $prefixes as $prefix => $base ) {
-					if ( strncmp( $prefix, $class, strlen( $prefix ) ) === 0 ) {
-						$file = $base . '/' . str_replace( '\\', '/', substr( $class, strlen( $prefix ) ) ) . '.php';
+					if ( strncmp( $prefix, $class_name, strlen( $prefix ) ) === 0 ) {
+						$file = $base . '/' . str_replace( '\\', '/', substr( $class_name, strlen( $prefix ) ) ) . '.php';
 						if ( is_file( $file ) ) {
 							require $file;
 							return true;

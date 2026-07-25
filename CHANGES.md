@@ -1,4 +1,5 @@
 [unreleased]
+* fix WPCS errors in the custom autoloader (missing @package tag, function docblock, short array syntax, array alignment, reserved $class param)
 
 #### 2.8.0 / 2026-07-24
 * add custom autoloader
