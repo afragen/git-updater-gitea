@@ -1,5 +1,5 @@
 [unreleased]
-* fix `construct_download_link()` falling back to the branch/tag archive endpoint when no release asset is found instead of returning a dead `''` or empty asset URL
+* fix `construct_download_link()` returning an empty download link when no release asset is found, failing the update instead of falling back to unbuilt tag source
 * fix WPCS errors in the custom autoloader (missing @package tag, function docblock, short array syntax, array alignment, reserved $class param)
 
 #### 2.8.0 / 2026-07-24
