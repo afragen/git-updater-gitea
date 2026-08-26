@@ -1,4 +1,5 @@
 [unreleased]
+* fix repeated release-asset API calls in a fetch cycle — `parse_branch_response()` now seeds `type->branches` before resolving per-branch download links so `use_release_asset()`/`is_tag_target()` classify branch targets (not tags) during the loop; without the seeding every branch of a release-asset repo was treated as a tag and each `construct_download_link()` re-fetched the release assets (requires Git Updater 14.4+)
 * read `tags` and `newest_tag` from the repo cache in `construct_download_link()` so non-fetch callers resolve the correct download endpoint even when the repo object has not been hydrated by a fetch (requires Git Updater 14.4+)
 * fix `construct_download_link()` returning an empty download link when no release asset is found, failing the update instead of falling back to unbuilt tag source
 * fix WPCS errors in the custom autoloader (missing @package tag, function docblock, short array syntax, array alignment, reserved $class param)
