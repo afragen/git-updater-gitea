@@ -28,6 +28,9 @@ function _manually_load_plugin() {
 	// (in-container it is mounted at wp-content/plugins/git-updater).
 	$gu_plugin = '/var/www/html/wp-content/plugins/git-updater/git-updater.php';
 	if ( ! file_exists( $gu_plugin ) ) {
+		$gu_plugin = dirname( __DIR__ ) . '/git-updater/git-updater.php';
+	}
+	if ( ! file_exists( $gu_plugin ) ) {
 		$gu_plugin = dirname( dirname( __DIR__ ) ) . '/git-updater/git-updater.php';
 	}
 	if ( file_exists( $gu_plugin ) ) {

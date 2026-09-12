@@ -17,7 +17,7 @@
   },
   "prefer-stable": true,
   "require": {
-    "php": ">=7.2"
+    "php": ">=8.0"
   },
   "require-dev": {
     "afragen/singleton": "^1.0",
@@ -28,6 +28,9 @@
     "wp-coding-standards/wpcs": "^3.0.0"
   },
   "config": {
+    "platform": {
+      "php": "8.0"
+    },
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": true
     }
