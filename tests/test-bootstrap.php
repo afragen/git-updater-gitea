@@ -114,7 +114,7 @@ class BootstrapTest extends WP_UnitTestCase {
 	public function test_set_credential_hosts_adds_configured_server_host() {
 		update_site_option('git_updater', ['gitea_server' => 'https://gitea.example.com']);
 
-		$hosts = (new Bootstrap())->set_credential_hosts([]);
+		$hosts = (new Bootstrap())->set_credential_hosts([], [], []);
 
 		delete_site_option('git_updater');
 

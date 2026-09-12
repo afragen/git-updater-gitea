@@ -24,15 +24,25 @@ require_once $_tests_dir . '/includes/functions.php';
  * Manually load the plugin being tested.
  */
 function _manually_load_plugin() {
+	// Load the main Git Updater plugin first so its base classes are available
+	// (in-container it is mounted at wp-content/plugins/git-updater).
+	$gu_plugin = '/var/www/html/wp-content/plugins/git-updater/git-updater.php';
+	if ( ! file_exists( $gu_plugin ) ) {
+		$gu_plugin = dirname( dirname( __DIR__ ) ) . '/git-updater/git-updater.php';
+	}
+	if ( file_exists( $gu_plugin ) ) {
+		require $gu_plugin;
+	}
+
 	require dirname( dirname( __FILE__ ) ) . '/git-updater-gitea.php';
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
-// Load the Git Updater base classes (API, traits, OAuth_Connect, Base, …) from a
-// sibling git-updater checkout so the API-plugin tests can extend API without
-// committing git-updater or its dependencies as a Composer package.
+// Load the Git Updater base classes (API, traits, OAuth_Connect, Base, …) from the
+// mounted main plugin (in-container) or a sibling git-updater checkout, so the
+// API-plugin tests can extend API without committing git-updater as a Composer package.
 $gu_src = null;
-foreach ( array( dirname( __DIR__ ) . '/../git-updater/src/Git_Updater', dirname( __DIR__ ) . '/git-updater/src/Git_Updater' ) as $candidate ) {
+foreach ( array( '/var/www/html/wp-content/plugins/git-updater/src/Git_Updater', dirname( __DIR__ ) . '/../git-updater/src/Git_Updater', dirname( __DIR__ ) . '/git-updater/src/Git_Updater' ) as $candidate ) {
 	if ( is_dir( $candidate ) ) {
 		$gu_src = $candidate;
 		break;

@@ -23,6 +23,8 @@
     "afragen/singleton": "^1.0",
     "erusev/parsedown": "^1.7",
     "afragen/wp-readme-parser": "^1.0",
+    "phpunit/phpunit": "^9.0",
+    "yoast/phpunit-polyfills": "^1.1",
     "wp-coding-standards/wpcs": "^3.0.0"
   },
   "config": {
@@ -38,6 +40,11 @@
   },
 	"scripts": {
 		"lint": "@php ./vendor/bin/phpcs .",
-		"format": "@php ./vendor/bin/phpcbf ."
+		"format": "@php ./vendor/bin/phpcbf .",
+		"wp-env-start": "npm run env:start",
+		"wp-env-stop": "npm run env:stop",
+		"test": "npm test",
+		"test-ms": "npm run test:multisite",
+		"test-coverage": "npm run test:coverage && open coverage/html/index.html"
 	}
 }

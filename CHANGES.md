@@ -4,6 +4,8 @@
 * fix WPCS errors in the custom autoloader (missing @package tag, function docblock, short array syntax, array alignment, reserved $class param)
 * fix repeated release-asset API calls in a fetch cycle — `parse_branch_response()` now seeds `type->branches` before resolving per-branch download links so `use_release_asset()`/`is_tag_target()` classify branch targets (not tags) during the loop; without the seeding every branch of a release-asset repo was treated as a tag and each `construct_download_link()` re-fetched the release assets (requires Git Updater 14.4+)
 * security: contribute the configured Gitea server host through the new `gu_credential_hosts` filter so tokens are only sent to authorized hosts, and reject a `remote_install()` download link on an unauthorized host (requires Git Updater 14.4+)
+* tests: run the PHPUnit suite under wp-env-macos — add phpunit + yoast/phpunit-polyfills dev deps, a coverage config, a `.wp-env.json` (PHP 8.2), a test bootstrap that loads the mounted main Git Updater plugin, and `test`/`test-ms`/`test-coverage`/`wp-env-start`/`wp-env-stop` composer scripts
+* fix `tests/test-bootstrap.php` to call `set_credential_hosts()` with its full argument list
 
 
 #### 2.8.0 / 2026-07-24
