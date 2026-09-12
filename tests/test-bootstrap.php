@@ -106,4 +106,36 @@ class BootstrapTest extends WP_UnitTestCase {
 		$this->assertEqualSetsWithIndex($expected, $actual);
 	}
 
+
+
+	/**
+	 * Gitea is self-hosted: public host comes from the configured server option.
+	 */
+	public function test_set_credential_hosts_adds_configured_server_host() {
+		update_site_option('git_updater', ['gitea_server' => 'https://gitea.example.com']);
+
+		$hosts = (new Bootstrap())->set_credential_hosts([]);
+
+		delete_site_option('git_updater');
+
+		$this->assertContains('gitea.example.com', $hosts['gitea']);
+	}
+
+	public function test_set_credential_hosts_adds_enterprise_host_from_registered_repo() {
+		$repo             = new \stdClass();
+		$repo->git        = 'gitea';
+		$repo->enterprise = 'https://gitea.example.org';
+
+		$hosts = (new Bootstrap())->set_credential_hosts([], [], [$repo]);
+
+		$this->assertContains('gitea.example.org', $hosts['gitea']);
+	}
+
+	public function test_load_hooks_registers_credential_hosts_filter() {
+		$bootstrap = new Bootstrap();
+		$bootstrap->load_hooks();
+
+		$this->assertNotFalse(has_filter('gu_credential_hosts', [$bootstrap, 'set_credential_hosts']));
+	}
+
 }
