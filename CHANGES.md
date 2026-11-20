@@ -1,4 +1,6 @@
 [unreleased]
+
+#### 2.9.0 / 2026-11-20
 * read `tags` and `newest_tag` from the repo cache in `construct_download_link()` so non-fetch callers resolve the correct download endpoint even when the repo object has not been hydrated by a fetch (requires Git Updater 14.4+)
 * fix `construct_download_link()` returning an empty download link when no release asset is found, failing the update instead of falling back to unbuilt tag source
 * fix WPCS errors in the custom autoloader (missing @package tag, function docblock, short array syntax, array alignment, reserved $class param)
@@ -7,7 +9,6 @@
 * tests: run the PHPUnit suite under wp-env-macos — add phpunit + yoast/phpunit-polyfills dev deps, a coverage config, a `.wp-env.json` (PHP 8.2), a test bootstrap that loads the mounted main Git Updater plugin, and `test`/`test-ms`/`test-coverage`/`wp-env-start`/`wp-env-stop` composer scripts
 * fix `tests/test-bootstrap.php` to call `set_credential_hosts()` with its full argument list
 * ci: pin Composer `config.platform.php` to 8.0 (matching git-updater and the plugin's `Requires PHP: 8.0` header) and regenerate `composer.lock`, so the test suite installs on the same PHP 8.0–8.5 matrix as git-updater; add the PHP 8.0 `--ignore-platform-reqs` CI exception
-
 
 #### 2.8.0 / 2026-07-24
 * add custom autoloader
