@@ -1,0 +1,5 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/wp-env.json",
+	"plugins": [ ".", "../git-updater" ],
+	"phpVersion": "8.2"
+}

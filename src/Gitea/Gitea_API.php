@@ -165,30 +165,38 @@ class Gitea_API extends API implements API_Interface {
 		$download_link_base = $this->get_api_url( '/repos/:owner/:repo/archive/', true );
 		$endpoint           = '';
 
+		/*
+		 * Read tag data from the repo cache so non-fetch callers (rollback,
+		 * branch switch, REST update, branch listings) resolve the correct
+		 * endpoint even when $this->type has not been hydrated by a fetch.
+		 */
+		$cache      = $this->get_repo_cache( $this->type->slug, false, [ 'tags', 'newest_tag' ] ) ?: [];
+		$tags       = $this->type->tags ?? [];
+		$newest_tag = $this->type->newest_tag ?? '0.0.0';
+		if ( is_array( $cache['tags'] ?? null ) && ! empty( $cache['tags'] ) ) {
+			$tags = $cache['tags'];
+		}
+		if ( ! empty( $cache['newest_tag'] ) ) {
+			$newest_tag = (string) $cache['newest_tag'];
+		} elseif ( is_array( $cache['tags'] ?? null ) && ! empty( $cache['tags'] ) ) {
+			// Missing newest_tag entry: derive newest from the cached tag list
+			// (a flat list of names; sort_tags() semantics).
+			$sorted = $cache['tags'];
+			usort( $sorted, fn ( $a, $b ) => version_compare( trim( $b, 'v' ), trim( $a, 'v' ) ) );
+			$newest_tag = (string) reset( $sorted );
+		}
+
+		$target = false !== $branch_switch ? $branch_switch : $this->type->branch;
+
 		// Release asset.
 		if ( $this->use_release_asset( $branch_switch ) ) {
-			$release_assets = $this->get_release_assets();
-			if ( ! $release_assets ) {
-				return '';
-			}
-			$release_assets['assets'] = $release_assets['assets'] ?? [];
-			$release_asset            = reset( $release_assets );
+			$release_asset = $this->resolve_release_asset( $branch_switch );
 
-			/*
-			 * Check if dev release asset is newer than latest release asset.
-			 *
-			 * @param bool
-			 * @param $this->type Repo type object.
-			 */
-			if ( apply_filters( 'gu_dev_release_asset', false, $this->type ) ) {
-				$current_asset_version     = array_key_first( $release_assets['assets'] ) ?? '';
-				$current_dev_asset_version = array_key_first( $release_assets['dev_assets'] ) ?? '';
-				if ( version_compare( $current_asset_version, $current_dev_asset_version, '<' ) ) {
-					$release_asset = reset( $release_assets['dev_assets'] );
-				}
+			// Only cache the primary/latest release asset; tag-specific assets
+			// must not pollute the release_asset_download cache.
+			if ( $release_asset && ! $this->is_tag_target( (string) $target ) ) {
+				$this->set_repo_cache( 'release_asset_download', $release_asset );
 			}
-
-			$this->set_repo_cache( 'release_asset_download', $release_asset );
 			return $release_asset;
 		}
 
@@ -196,15 +204,10 @@ class Gitea_API extends API implements API_Interface {
 		 * If a branch has been given, use branch.
 		 * If branch is primary branch (default) and tags are used, use newest tag.
 		 */
-		if ( $this->type->primary_branch !== $this->type->branch || empty( $this->type->tags ) ) {
-			$endpoint .= $this->type->branch . '.zip';
+		if ( $this->type->primary_branch !== $target || empty( $tags ) ) {
+			$endpoint .= $target . '.zip';
 		} else {
-			$endpoint .= $this->type->newest_tag . '.zip';
-		}
-
-		// Create endpoint for branch switching.
-		if ( $branch_switch ) {
-			$endpoint = $branch_switch . '.zip';
+			$endpoint .= $newest_tag . '.zip';
 		}
 
 		$download_link = $download_link_base . $endpoint;
@@ -221,6 +224,84 @@ class Gitea_API extends API implements API_Interface {
 		 * @param string   $branch_switch Branch or tag for rollback or branch switching.
 		 */
 		return apply_filters( 'gu_post_construct_download_link', $download_link, $this->type, $branch_switch );
+	}
+
+	/**
+	 * Resolve the release asset URL for a given target.
+	 *
+	 * @param bool|string $branch_switch Branch or tag to switch to, or false.
+	 *
+	 * @return string|bool Release asset URL, or false if none.
+	 */
+	private function resolve_release_asset( $branch_switch = false ) {
+		$target = false !== $branch_switch ? $branch_switch : $this->type->branch;
+
+		if ( $target === $this->type->primary_branch ) {
+			return $this->get_latest_release_asset();
+		}
+
+		if ( is_string( $target ) && $this->is_tag_target( $target ) ) {
+			return $this->get_release_asset_for_tag( $target );
+		}
+
+		return '';
+	}
+
+	/**
+	 * Check whether a string target is a tag (not a branch).
+	 *
+	 * @param string $target Target branch or tag.
+	 *
+	 * @return bool
+	 */
+	private function is_tag_target( string $target ): bool {
+		return ! array_key_exists( $target, (array) ( $this->type->branches ?? [] ) );
+	}
+
+	/**
+	 * Fetch the release asset URL for a specific tag.
+	 *
+	 * @param string $tag Tag name.
+	 *
+	 * @return string Release asset URL, or empty string if none.
+	 */
+	private function get_release_asset_for_tag( string $tag ): string {
+		$response = $this->api( '/repos/:owner/:repo/releases/tags/' . $tag );
+		if ( is_wp_error( $response ) || ! isset( $response->assets ) || ! is_array( $response->assets ) ) {
+			return '';
+		}
+
+		foreach ( $response->assets as $asset ) {
+			if ( isset( $asset->name, $asset->url ) && str_starts_with( $asset->name, $this->type->slug ) ) {
+				return $asset->url;
+			}
+		}
+
+		return '';
+	}
+
+	/**
+	 * Fetch the latest release asset URL, applying the dev-release-asset filter.
+	 *
+	 * @return string|bool Release asset URL, or false if none.
+	 */
+	private function get_latest_release_asset() {
+		$release_assets = $this->get_release_assets();
+		if ( ! $release_assets ) {
+			return '';
+		}
+		$release_assets['assets'] = $release_assets['assets'] ?? [];
+		$release_asset            = reset( $release_assets['assets'] );
+
+		if ( apply_filters( 'gu_dev_release_asset', false, $this->type ) ) {
+			$current_asset_version     = array_key_first( $release_assets['assets'] ) ?? '';
+			$current_dev_asset_version = array_key_first( $release_assets['dev_assets'] ?? [] ) ?? '';
+			if ( version_compare( $current_asset_version, $current_dev_asset_version, '<' ) ) {
+				$release_asset = reset( $release_assets['dev_assets'] );
+			}
+		}
+
+		return $release_asset;
 	}
 
 	/**
@@ -349,6 +430,19 @@ class Gitea_API extends API implements API_Interface {
 			return $response;
 		}
 		$response = is_string( $response ) ? [] : $response;
+
+		/*
+		 * Seed type->branches before the loop so construct_download_link()
+		 * classifies branches versus tags during the per-branch download link
+		 * resolution. populate_api_data() fills the repo object later; without
+		 * this, every branch target is treated as a tag and release-asset repos
+		 * re-resolve /releases for each branch.
+		 */
+		$this->type->branches = [];
+		foreach ( $response as $branch ) {
+			$this->type->branches[ $branch->name ] = [];
+		}
+
 		$branches = [];
 		foreach ( $response as $branch ) {
 			$branches[ $branch->name ]['download']         = $this->construct_download_link( $branch->name );

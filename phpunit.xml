@@ -7,6 +7,16 @@
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
 	>
+	<coverage processUncoveredFiles="true">
+		<include>
+			<directory suffix=".php">./src</directory>
+		</include>
+		<report>
+			<clover outputFile="coverage/clover.xml"/>
+			<html outputDirectory="coverage/html"/>
+		</report>
+	</coverage>
+
 	<testsuites>
 		<testsuite name="git-updater-gitea">
 			<directory prefix="test-" suffix=".php">./tests/</directory>
