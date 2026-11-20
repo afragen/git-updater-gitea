@@ -2,14 +2,14 @@
 # This file is distributed under the MIT.
 msgid ""
 msgstr ""
-"Project-Id-Version: Git Updater - Gitea 2.8.0\n"
+"Project-Id-Version: Git Updater - Gitea 2.9.0\n"
 "Report-Msgid-Bugs-To: https://github.com/afragen/git-updater-gitea/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-24T23:08:33+00:00\n"
+"POT-Creation-Date: 2026-11-20T21:18:26+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: git-updater-gitea\n"
@@ -34,48 +34,54 @@ msgstr ""
 msgid "Andy Fragen"
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:460
-#: src/Gitea/Gitea_API.php:534
-#: src/Gitea/Gitea_API.php:613
+#. translators: %s: hostname of the install source.
+#: src/Bootstrap.php:341
+#, php-format
+msgid "The install source %s is not an allowed host."
+msgstr ""
+
+#: src/Gitea/Gitea_API.php:554
+#: src/Gitea/Gitea_API.php:628
+#: src/Gitea/Gitea_API.php:707
 msgid "Gitea Access Token"
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:469
+#: src/Gitea/Gitea_API.php:563
 msgid "Gitea Private Settings"
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:515
+#: src/Gitea/Gitea_API.php:609
 msgid "Gitea OAuth"
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:524
+#: src/Gitea/Gitea_API.php:618
 msgid "Remove Token"
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:543
+#: src/Gitea/Gitea_API.php:637
 msgid "Gitea Server URL"
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:552
+#: src/Gitea/Gitea_API.php:646
 msgid "Gitea OAuth App Client ID"
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:583
+#: src/Gitea/Gitea_API.php:677
 msgid "Gitea"
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:592
+#: src/Gitea/Gitea_API.php:686
 msgid "Enter your repository specific Gitea Access Token."
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:599
+#: src/Gitea/Gitea_API.php:693
 msgid "Enter your Gitea Access Token."
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:600
+#: src/Gitea/Gitea_API.php:694
 msgid "Access tokens are stored in this site's options table. Database backups contain them in cleartext — handle backup files accordingly."
 msgstr ""
 
-#: src/Gitea/Gitea_API.php:629
+#: src/Gitea/Gitea_API.php:723
 msgid "Enter Gitea Access Token for private Gitea repositories."
 msgstr ""
